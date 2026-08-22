@@ -1,0 +1,19 @@
+{
+  "sections": {
+    "main": {
+      "type": "sovn-landing",
+      "blocks": {
+        "b1": { "type": "benefit", "settings": { "title": "Asleep in ~20 minutes", "text": "Reviewers report drifting off faster within the first week — no counting sheep, no scrolling." } },
+        "b2": { "type": "benefit", "settings": { "title": "Sleep through the night", "text": "Fewer 3am wake-ups means the deep, uninterrupted sleep your body actually repairs on." } },
+        "b3": { "type": "benefit", "settings": { "title": "Wake up clear", "text": "No sedative hangover. You wake sharp and rested — the way a good night should feel." } },
+        "b4": { "type": "benefit", "settings": { "title": "A ritual, not a pill", "text": "A warm blackcurrant drink you'll look forward to — the cue that the day is done." } },
+        "f1": { "type": "faq", "settings": { "question": "How is this different from just taking magnesium?", "answer": "Dose and form. SØVN uses 200mg of highly-absorbable magnesium bisglycinate plus clinically-studied glycine and L-theanine — most cheap tablets are under-dosed and poorly absorbed." } },
+        "f2": { "type": "faq", "settings": { "question": "Will I feel groggy in the morning?", "answer": "No. SØVN contains no melatonin or sedatives. It works with your body's own calming pathways, so you wake up clear-headed." } },
+        "f3": { "type": "faq", "settings": { "question": "How long until it works?", "answer": "Many people notice calmer, faster sleep within days. The deeper benefits build over 2–3 weeks of consistent use." } },
+        "f4": { "type": "faq", "settings": { "question": "What if it doesn't work for me?", "answer": "You're covered by our 60-night money-back guarantee. Email us for a full refund — even if the tub is empty." } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4", "f1", "f2", "f3", "f4"]
+    }
+  },
+  "order": ["main"]
+}

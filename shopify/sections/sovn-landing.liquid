@@ -1,0 +1,271 @@
+{% comment %}
+  SØVN Night — conversion landing section (Online Store 2.0)
+  Drop onto any page or product template. Bind it to a real product via the
+  "Product" setting to make the buy box add to cart for real; otherwise it
+  renders with the demo defaults below. Fully editable in the Theme Editor.
+{% endcomment %}
+
+{%- assign p = section.settings.product -%}
+{%- if p != blank -%}
+  {%- assign variant = p.selected_or_first_available_variant -%}
+{%- endif -%}
+
+<style>
+  #sovn-{{ section.id }}{
+    --paper:#EBEEF3; --card:#fff; --ink:#141B2E; --ink-soft:#4A5468; --line:#D8DDE6;
+    --midnight:#0B1020; --mid-line:#26304C; --on-mid:#EAEEF8; --on-mid-soft:#9FA9C4;
+    --aurora:#57CFB2; --aurora-deep:#2FA98C; --amber:#E6B25C;
+    font-family:{{ settings.type_body_font.family | default: "'Hanken Grotesk',sans-serif" }},sans-serif;
+    color:var(--ink);
+  }
+  #sovn-{{ section.id }} h1,#sovn-{{ section.id }} h2{
+    font-family:{{ settings.type_header_font.family | default: "'Spectral',Georgia,serif" }},serif;
+    font-weight:400;line-height:1.1;letter-spacing:-.01em;margin:0;text-wrap:balance;}
+  #sovn-{{ section.id }} .sovn-wrap{max-width:1140px;margin:0 auto;padding:0 24px;}
+  #sovn-{{ section.id }} .sovn-ey{font-size:12.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--aurora-deep);}
+  #sovn-{{ section.id }} .sovn-btn{display:inline-flex;align-items:center;gap:.5em;font-weight:700;font-size:16px;
+    padding:16px 30px;border-radius:999px;border:0;cursor:pointer;text-decoration:none;
+    background:var(--aurora);color:#06231C;transition:transform .15s;}
+  #sovn-{{ section.id }} .sovn-btn:hover{transform:translateY(-2px);}
+  #sovn-{{ section.id }} .sovn-btn.block{width:100%;justify-content:center;}
+
+  /* hero */
+  #sovn-{{ section.id }} .sovn-hero{background:
+     radial-gradient(120% 90% at 78% 8%,rgba(87,207,178,.16),transparent 55%),
+     linear-gradient(180deg,var(--midnight),#131A30);color:var(--on-mid);}
+  #sovn-{{ section.id }} .sovn-hero-in{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding:64px 0 72px;}
+  #sovn-{{ section.id }} .sovn-hero h1{font-size:clamp(38px,6vw,66px);color:#fff;font-weight:300;}
+  #sovn-{{ section.id }} .sovn-hero h1 em{font-style:italic;color:var(--aurora);}
+  #sovn-{{ section.id }} .sovn-lede{color:var(--on-mid-soft);font-size:19px;max-width:32ch;margin-top:20px;}
+  #sovn-{{ section.id }} .sovn-stars{color:var(--amber);letter-spacing:2px;}
+  #sovn-{{ section.id }} .sovn-rate{display:flex;gap:12px;align-items:center;margin:24px 0;font-size:14px;color:var(--on-mid-soft);}
+  #sovn-{{ section.id }} .sovn-prod{display:flex;justify-content:center;}
+  #sovn-{{ section.id }} .sovn-prod img{max-width:300px;border-radius:20px;}
+
+  /* generic section */
+  #sovn-{{ section.id }} .sovn-pad{padding:80px 0;}
+  #sovn-{{ section.id }} .sovn-mid{background:var(--midnight);color:var(--on-mid);}
+  #sovn-{{ section.id }} .sovn-mid h2{color:#fff;}
+  #sovn-{{ section.id }} .sovn-head{max-width:640px;}
+  #sovn-{{ section.id }} .sovn-head.ctr{margin:0 auto;text-align:center;}
+  #sovn-{{ section.id }} .sovn-head h2{font-size:clamp(30px,4.3vw,46px);margin-top:12px;}
+  #sovn-{{ section.id }} .sovn-head p{color:var(--ink-soft);font-size:18px;margin-top:14px;}
+  #sovn-{{ section.id }} .sovn-mid .sovn-head p{color:var(--on-mid-soft);}
+
+  /* benefits */
+  #sovn-{{ section.id }} .sovn-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:44px;}
+  #sovn-{{ section.id }} .sovn-cell{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;}
+  #sovn-{{ section.id }} .sovn-cell h3{font-size:20px;margin:0 0 6px;font-family:{{ settings.type_header_font.family | default: "'Spectral',serif" }},serif;font-weight:500;}
+  #sovn-{{ section.id }} .sovn-cell p{color:var(--ink-soft);font-size:15.5px;margin:0;}
+
+  /* offer */
+  #sovn-{{ section.id }} .sovn-offer{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+  #sovn-{{ section.id }} .sovn-pack{display:flex;gap:14px;align-items:center;border:1.5px solid var(--mid-line);
+     border-radius:16px;padding:18px 20px;cursor:pointer;margin-bottom:12px;position:relative;}
+  #sovn-{{ section.id }} .sovn-pack.sel{border-color:var(--aurora);background:rgba(87,207,178,.08);}
+  #sovn-{{ section.id }} .sovn-pack .radio{width:22px;height:22px;border-radius:50%;border:2px solid var(--mid-line);flex:none;display:grid;place-items:center;}
+  #sovn-{{ section.id }} .sovn-pack.sel .radio{border-color:var(--aurora);}
+  #sovn-{{ section.id }} .sovn-pack.sel .radio::after{content:"";width:11px;height:11px;border-radius:50%;background:var(--aurora);}
+  #sovn-{{ section.id }} .sovn-pack .info{flex:1;}
+  #sovn-{{ section.id }} .sovn-pack .info b{color:#fff;display:block;}
+  #sovn-{{ section.id }} .sovn-pack .info small{color:var(--on-mid-soft);font-size:13px;}
+  #sovn-{{ section.id }} .sovn-pack .now{font-family:{{ settings.type_header_font.family | default: "'Spectral',serif" }},serif;font-size:22px;color:#fff;}
+  #sovn-{{ section.id }} .sovn-guar{display:flex;gap:16px;align-items:center;background:rgba(255,255,255,.03);
+     border:1px solid var(--mid-line);border-radius:16px;padding:22px;margin-bottom:16px;}
+  #sovn-{{ section.id }} .sovn-guar .seal{width:64px;height:64px;flex:none;border-radius:50%;border:2px dashed var(--aurora);
+     display:grid;place-items:center;color:var(--aurora);font-family:{{ settings.type_header_font.family | default: "'Spectral',serif" }},serif;font-size:12px;text-align:center;line-height:1.1;}
+  #sovn-{{ section.id }} .sovn-guar h3{color:#fff;font-size:19px;margin:0 0 4px;font-family:{{ settings.type_header_font.family | default: "'Spectral',serif" }},serif;font-weight:500;}
+  #sovn-{{ section.id }} .sovn-guar p{color:var(--on-mid-soft);font-size:14px;margin:0;}
+
+  /* faq */
+  #sovn-{{ section.id }} .sovn-faq{max-width:760px;margin:40px auto 0;}
+  #sovn-{{ section.id }} .sovn-qa{border-bottom:1px solid var(--line);}
+  #sovn-{{ section.id }} .sovn-qa summary{list-style:none;cursor:pointer;font-family:{{ settings.type_header_font.family | default: "'Spectral',serif" }},serif;
+     font-size:20px;padding:22px 40px 22px 0;position:relative;}
+  #sovn-{{ section.id }} .sovn-qa summary::-webkit-details-marker{display:none;}
+  #sovn-{{ section.id }} .sovn-qa summary::after{content:"+";position:absolute;right:4px;top:20px;font-size:26px;color:var(--aurora-deep);}
+  #sovn-{{ section.id }} .sovn-qa[open] summary::after{content:"\2013";}
+  #sovn-{{ section.id }} .sovn-qa p{color:var(--ink-soft);font-size:15.5px;padding:0 40px 22px 0;margin:0;}
+
+  @media(max-width:860px){
+    #sovn-{{ section.id }} .sovn-hero-in,#sovn-{{ section.id }} .sovn-offer{grid-template-columns:1fr;gap:30px;}
+    #sovn-{{ section.id }} .sovn-grid{grid-template-columns:1fr;}
+    #sovn-{{ section.id }} .sovn-prod{order:-1;}
+  }
+</style>
+
+<div id="sovn-{{ section.id }}">
+
+  <!-- HERO -->
+  <section class="sovn-hero">
+    <div class="sovn-wrap sovn-hero-in">
+      <div>
+        <span class="sovn-ey" style="color:var(--aurora)">{{ section.settings.eyebrow }}</span>
+        <h1>{{ section.settings.headline }}</h1>
+        <p class="sovn-lede">{{ section.settings.subhead }}</p>
+        <div class="sovn-rate"><span class="sovn-stars">★★★★★</span> {{ section.settings.rating }}/5 from {{ section.settings.review_count }} verified sleepers</div>
+        <a href="#sovn-buy-{{ section.id }}" class="sovn-btn">{{ section.settings.cta_label }}</a>
+      </div>
+      <div class="sovn-prod">
+        {%- if p != blank and p.featured_image -%}
+          {{ p.featured_image | image_url: width: 600 | image_tag: loading: 'eager', alt: p.title }}
+        {%- elsif section.settings.hero_image -%}
+          {{ section.settings.hero_image | image_url: width: 600 | image_tag: alt: 'SØVN Night' }}
+        {%- else -%}
+          <div style="width:280px;height:340px;border-radius:20px;background:linear-gradient(180deg,#1b2440,#0c1226);display:grid;place-items:center;color:var(--aurora);font-family:Spectral,serif;font-size:30px;letter-spacing:4px;">SØVN</div>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="sovn-pad">
+    <div class="sovn-wrap">
+      <div class="sovn-head ctr">
+        <span class="sovn-ey">{{ section.settings.benefits_eyebrow }}</span>
+        <h2>{{ section.settings.benefits_title }}</h2>
+      </div>
+      <div class="sovn-grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'benefit' -%}
+            <div class="sovn-cell" {{ block.shopify_attributes }}>
+              <h3>{{ block.settings.title }}</h3>
+              <p>{{ block.settings.text }}</p>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFER / BUY -->
+  <section class="sovn-pad sovn-mid" id="sovn-buy-{{ section.id }}">
+    <div class="sovn-wrap sovn-offer">
+      <div>
+        <span class="sovn-ey" style="color:var(--aurora)">Choose your ritual</span>
+        <h2 style="color:#fff;margin:12px 0 18px;">{{ section.settings.offer_title }}</h2>
+
+        {%- if p != blank -%}
+          {%- comment -%} Real product form — variants become the "packs" {%- endcomment -%}
+          {% form 'product', p %}
+            <input type="hidden" name="id" value="{{ variant.id }}" class="sovn-vid">
+            {%- for v in p.variants -%}
+              <label class="sovn-pack {% if v.id == variant.id %}sel{% endif %}" data-vid="{{ v.id }}">
+                <input type="radio" name="pack" value="{{ v.id }}" style="display:none" {% if v.id == variant.id %}checked{% endif %}>
+                <span class="radio"></span>
+                <span class="info"><b>{{ v.title }}</b><small>{{ v.available | default: false }}{% unless v.available %}Sold out{% endunless %}</small></span>
+                <span class="now">{{ v.price | money }}</span>
+              </label>
+            {%- endfor -%}
+            <button type="submit" class="sovn-btn block" style="margin-top:8px;">{{ section.settings.cta_label }} — {{ variant.price | money }}</button>
+          {% endform %}
+        {%- else -%}
+          {%- comment -%} Demo packs when no product bound {%- endcomment -%}
+          <label class="sovn-pack" data-price="39"><input type="radio" name="pack" style="display:none"><span class="radio"></span><span class="info"><b>1 Tub — Starter</b><small>30 nights</small></span><span class="now">€39</span></label>
+          <label class="sovn-pack sel" data-price="99"><input type="radio" name="pack" checked style="display:none"><span class="radio"></span><span class="info"><b>3 Tubs — Most popular</b><small>Save €48</small></span><span class="now">€99</span></label>
+          <label class="sovn-pack" data-price="174"><input type="radio" name="pack" style="display:none"><span class="radio"></span><span class="info"><b>6 Tubs — Best value</b><small>Save €120</small></span><span class="now">€174</span></label>
+          <a href="#" class="sovn-btn block" style="margin-top:8px;">{{ section.settings.cta_label }}</a>
+        {%- endif -%}
+      </div>
+
+      <div>
+        <div class="sovn-guar">
+          <div class="seal">60<br>NIGHT</div>
+          <div><h3>{{ section.settings.guarantee_title }}</h3><p>{{ section.settings.guarantee_text }}</p></div>
+        </div>
+        <div class="sovn-guar"><div class="seal" style="border-style:solid">🇩🇰</div><div><h3>Made in Denmark</h3><p>Formulated by Copenhagen pharmacists and third-party tested for purity.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sovn-pad">
+    <div class="sovn-wrap">
+      <div class="sovn-head ctr"><span class="sovn-ey">Before you ask</span><h2>Questions, answered</h2></div>
+      <div class="sovn-faq">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'faq' -%}
+            <details class="sovn-qa" {{ block.shopify_attributes }}>
+              <summary>{{ block.settings.question }}</summary>
+              <p>{{ block.settings.answer }}</p>
+            </details>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  (function(){
+    var root=document.getElementById('sovn-{{ section.id }}');
+    if(!root)return;
+    root.querySelectorAll('.sovn-pack').forEach(function(pk){
+      pk.addEventListener('click',function(){
+        root.querySelectorAll('.sovn-pack').forEach(function(x){x.classList.remove('sel');});
+        pk.classList.add('sel');
+        var vid=pk.getAttribute('data-vid'), hidden=root.querySelector('.sovn-vid');
+        if(vid&&hidden){hidden.value=vid;}
+        var radio=pk.querySelector('input[type=radio]'); if(radio)radio.checked=true;
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "SØVN Landing",
+  "tag": "section",
+  "class": "sovn-landing-section",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Product to sell (optional)", "info": "Bind a real product to make the buy box add to cart. Leave empty for demo mode." },
+    { "type": "header", "content": "Hero" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Nordic magnesium sleep drink" },
+    { "type": "richtext", "id": "headline", "label": "Headline", "default": "<p>Fall asleep faster. Wake up <em>actually rested.</em></p>" },
+    { "type": "textarea", "id": "subhead", "label": "Subheadline", "default": "A calming blackcurrant night drink with clinically-dosed magnesium, glycine & L-theanine. No melatonin, no grogginess." },
+    { "type": "text", "id": "rating", "label": "Rating", "default": "4.8" },
+    { "type": "text", "id": "review_count", "label": "Review count", "default": "2,400+" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "Start your wind-down ritual" },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero image (if no product bound)" },
+    { "type": "header", "content": "Benefits" },
+    { "type": "text", "id": "benefits_eyebrow", "label": "Eyebrow", "default": "Why people stay" },
+    { "type": "text", "id": "benefits_title", "label": "Title", "default": "Better nights, measured in mornings" },
+    { "type": "header", "content": "Offer" },
+    { "type": "text", "id": "offer_title", "label": "Offer title", "default": "Start sleeping deeper tonight" },
+    { "type": "text", "id": "guarantee_title", "label": "Guarantee title", "default": "Sleep on it for 60 nights." },
+    { "type": "textarea", "id": "guarantee_text", "label": "Guarantee text", "default": "Not falling asleep faster and waking clearer? Email us for a full refund — even if the tub is empty." }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Asleep in ~20 minutes" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Reviewers report drifting off faster within the first week." }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "FAQ item",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "How is this different from just taking magnesium?" },
+        { "type": "textarea", "id": "answer", "label": "Answer", "default": "Dose and form. SØVN uses 200mg of highly-absorbable magnesium bisglycinate plus clinically-studied glycine and L-theanine." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "SØVN Landing",
+      "blocks": [
+        { "type": "benefit", "settings": { "title": "Asleep in ~20 minutes", "text": "Reviewers report drifting off faster within the first week — no counting sheep." } },
+        { "type": "benefit", "settings": { "title": "Sleep through the night", "text": "Fewer 3am wake-ups means the deep, uninterrupted sleep your body repairs on." } },
+        { "type": "benefit", "settings": { "title": "Wake up clear", "text": "No sedative hangover — you wake sharp and rested." } },
+        { "type": "benefit", "settings": { "title": "A ritual, not a pill", "text": "A warm blackcurrant drink that cues your brain the day is done." } },
+        { "type": "faq", "settings": { "question": "Will I feel groggy in the morning?", "answer": "No. SØVN contains no melatonin or sedatives, so you wake clear-headed." } },
+        { "type": "faq", "settings": { "question": "How long until it works?", "answer": "Many notice calmer sleep within days; deeper benefits build over 2–3 weeks." } },
+        { "type": "faq", "settings": { "question": "What if it doesn't work for me?", "answer": "You're covered by our 60-night money-back guarantee — even if the tub is empty." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
