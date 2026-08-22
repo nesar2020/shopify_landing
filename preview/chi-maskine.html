@@ -1,0 +1,543 @@
+<title>AVA · Chi Maskine</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+
+<style>
+/* AVA-consistent design system — single light look, explicit colors (brand fidelity) */
+:root{
+  --white:#ffffff;
+  --cream:#F5F0E7;
+  --cream-2:#EFE8DB;
+  --ink:#22262F;
+  --ink-soft:#5B6070;
+  --ink-faint:#8A8F9C;
+  --line:#E6E0D4;
+  --line-2:#ECE7DC;
+  --black:#191A1F;
+  --red:#E0322B;
+  --red-soft:#FBE9E7;
+  --teal:#2FA79C;
+  --teal-deep:#1F8579;
+  --teal-soft:#E4F3F1;
+  --navy:#22262F;
+  --gold:#F5A623;
+  --r:14px;
+  --r-lg:22px;
+  --shadow:0 18px 40px -20px rgba(34,38,47,.22);
+  --shadow-sm:0 8px 20px -12px rgba(34,38,47,.2);
+  --maxw:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--white);color:var(--ink);
+  font-family:"Instrument Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4{font-family:"Lora",Georgia,serif;font-weight:600;line-height:1.14;margin:0;text-wrap:balance}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+.stars{color:var(--gold);letter-spacing:1px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;font-family:inherit;
+  font-weight:700;font-size:16px;padding:16px 28px;border-radius:10px;border:0;cursor:pointer;
+  background:var(--black);color:#fff;transition:transform .14s,background .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-1px);background:#000;box-shadow:0 12px 24px -12px rgba(0,0,0,.5)}
+.btn.block{width:100%}
+.btn.lg{padding:19px 30px;font-size:17px}
+.btn.teal{background:var(--teal);}
+.btn.teal:hover{background:var(--teal-deep)}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px;border-radius:6px}
+
+/* announcement */
+.announce{background:var(--navy);color:#EAECEF;font-size:13px;font-weight:500;text-align:center;
+  padding:9px 14px;letter-spacing:.01em}
+.announce b{color:#fff}
+.announce .sep{color:#5b6070;margin:0 10px}
+
+/* header */
+header.site{position:sticky;top:0;z-index:80;background:var(--white);border-bottom:1px solid var(--line)}
+.hd{display:flex;align-items:center;gap:20px;height:66px}
+.logo{display:flex;align-items:center;gap:9px;font-family:"Lora",serif;font-weight:700;font-size:26px;
+  letter-spacing:.22em;color:var(--ink)}
+.logo .eye{width:26px;height:26px;flex:none}
+.search{flex:1;max-width:440px;position:relative}
+.search input{width:100%;height:42px;border:1px solid var(--line);border-radius:9px;background:var(--cream);
+  padding:0 40px 0 15px;font-family:inherit;font-size:14.5px;color:var(--ink)}
+.search input::placeholder{color:var(--ink-faint)}
+.search svg{position:absolute;right:13px;top:12px;color:var(--ink-faint)}
+.hd-right{display:flex;align-items:center;gap:22px;margin-left:auto;font-size:14px;font-weight:600}
+.hd-right a{display:flex;align-items:center;gap:7px}
+.hd-cart{background:var(--cream);padding:9px 15px;border-radius:9px}
+.catnav{border-bottom:1px solid var(--line);background:var(--white)}
+.catnav .wrap{display:flex;gap:26px;height:46px;align-items:center;font-size:13.5px;font-weight:600;
+  color:var(--ink-soft);overflow-x:auto}
+.catnav a{white-space:nowrap}
+.catnav a:hover{color:var(--ink)}
+.catnav a.red{color:var(--red)}
+@media(max-width:900px){.search{display:none}.hd-right .hide{display:none}}
+
+/* hero */
+.hero{padding:36px 0 8px}
+.hero-in{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+.gallery{position:relative}
+.gmain{background:var(--cream);border-radius:var(--r-lg);aspect-ratio:1/1;display:grid;place-items:center;
+  position:relative;overflow:hidden;border:1px solid var(--line-2)}
+.gmain svg{width:88%;height:88%}
+.burst{position:absolute;top:16px;left:16px;z-index:3;background:var(--red);color:#fff;font-weight:800;
+  font-size:12.5px;letter-spacing:.04em;padding:9px 14px;border-radius:8px;transform:rotate(-4deg);
+  box-shadow:0 8px 18px -8px rgba(224,50,43,.7);line-height:1.1;text-align:center}
+.thumbs{display:flex;gap:10px;margin-top:12px}
+.thumb{width:70px;height:70px;border-radius:11px;background:var(--cream);border:1px solid var(--line-2);
+  display:grid;place-items:center;cursor:pointer;transition:border-color .15s}
+.thumb.act{border-color:var(--ink)}
+.thumb svg{width:70%;height:70%;opacity:.8}
+
+.pinfo .prate{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--ink-soft);font-weight:600}
+.pinfo h1{font-size:clamp(26px,3.4vw,36px);margin:12px 0 4px;line-height:1.16}
+.psub{color:var(--ink-soft);font-size:15px;margin-bottom:18px}
+.pbul{list-style:none;padding:0;margin:0 0 22px;display:flex;flex-direction:column;gap:11px}
+.pbul li{display:flex;gap:11px;align-items:flex-start;font-size:15px}
+.pbul .ck{flex:none;width:22px;height:22px;border-radius:50%;background:var(--teal-soft);color:var(--teal-deep);
+  display:grid;place-items:center;margin-top:1px}
+.price-row{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+.price-now{background:var(--red);color:#fff;font-weight:800;font-size:24px;padding:6px 14px;border-radius:9px;
+  font-family:"Instrument Sans";letter-spacing:.01em}
+.price-old{color:var(--ink-faint);text-decoration:line-through;font-size:18px;font-weight:600}
+.price-save{color:var(--red);font-weight:700;font-size:14px}
+.qty-packs{display:flex;gap:10px;margin:16px 0}
+.qp{flex:1;border:1.5px solid var(--line);border-radius:11px;padding:12px 14px;cursor:pointer;position:relative;
+  transition:border-color .15s,background .15s}
+.qp.sel{border-color:var(--teal);background:var(--teal-soft)}
+.qp b{display:block;font-size:15px}
+.qp small{color:var(--ink-soft);font-size:12.5px}
+.qp .tag{position:absolute;top:-9px;right:10px;background:var(--red);color:#fff;font-size:10px;font-weight:800;
+  padding:2px 8px;border-radius:99px;letter-spacing:.03em}
+.trustline{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:14px;font-size:12.5px;color:var(--ink-soft)}
+.trustline span{display:flex;align-items:center;gap:6px}
+.trustline svg{color:var(--teal-deep)}
+.retbox{display:flex;gap:14px;align-items:flex-start;background:var(--teal-soft);border:1px solid #CDE9E5;
+  border-radius:var(--r);padding:16px 18px;margin-top:18px}
+.retbox .eye{width:34px;height:34px;flex:none}
+.retbox b{font-size:14.5px;color:var(--teal-deep)}
+.retbox p{font-size:13px;color:var(--ink-soft);margin-top:2px}
+@media(max-width:860px){.hero-in{grid-template-columns:1fr;gap:26px}}
+
+/* section scaffold */
+.pad{padding:74px 0}
+.cream{background:var(--cream)}
+.shead{text-align:center;max-width:640px;margin:0 auto 44px}
+.shead .ey{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--teal-deep)}
+.shead h2{font-size:clamp(26px,3.6vw,38px);margin-top:12px}
+.shead p{color:var(--ink-soft);margin-top:12px;font-size:16.5px}
+
+/* FAQ */
+.faq{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.qa{background:var(--white);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.qa summary{list-style:none;cursor:pointer;font-weight:600;font-size:15.5px;padding:18px 44px 18px 18px;
+  position:relative;font-family:"Instrument Sans"}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"+";position:absolute;right:16px;top:15px;font-size:22px;color:var(--teal-deep);font-weight:400}
+.qa[open] summary::after{content:"\2013"}
+.qa .a{padding:0 18px 18px;color:var(--ink-soft);font-size:14.5px}
+@media(max-width:760px){.faq{grid-template-columns:1fr}}
+
+/* benefit blocks */
+.bblock{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;padding:26px 0}
+.bblock.rev .bimg{order:2}
+.bimg{border-radius:var(--r-lg);overflow:hidden;aspect-ratio:5/4;border:1px solid var(--line-2);
+  display:grid;place-items:center;position:relative}
+.bimg svg{width:100%;height:100%}
+.btext h2{font-size:clamp(24px,3vw,32px);margin-bottom:14px}
+.btext p{color:var(--ink-soft);font-size:16px;margin-bottom:12px}
+.btext .mini{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--teal-deep);
+  background:var(--teal-soft);padding:7px 13px;border-radius:99px;margin-top:6px}
+@media(max-width:860px){.bblock,.bblock.rev{grid-template-columns:1fr;gap:22px}.bblock.rev .bimg{order:0}}
+
+/* comparison */
+.cmp{max-width:940px;margin:0 auto;overflow-x:auto}
+.cmp table{width:100%;border-collapse:collapse;min-width:600px;background:var(--white);border-radius:var(--r);
+  overflow:hidden;box-shadow:var(--shadow-sm)}
+.cmp th,.cmp td{padding:15px 16px;text-align:center;border-bottom:1px solid var(--line-2)}
+.cmp thead th{font-family:"Lora",serif;font-size:16px;font-weight:600;background:var(--cream-2);position:relative}
+.cmp thead th.us{background:var(--ink);color:#fff}
+.cmp thead .tag{display:inline-block;background:var(--red);color:#fff;font-family:"Instrument Sans";font-size:10px;
+  font-weight:800;letter-spacing:.06em;padding:3px 9px;border-radius:99px;margin-top:6px}
+.cmp thead .tag.grey{background:transparent;color:var(--ink-faint);border:1px solid var(--line)}
+.cmp tbody td:first-child{text-align:left;font-weight:600;color:var(--ink-soft);font-size:14.5px}
+.cmp td.us{background:#FBFBFC}
+.cmp tbody tr:last-child td{border-bottom:0}
+.ck-y{color:var(--red);font-weight:800;font-size:18px}
+.ck-n{color:#CBCFD6;font-size:16px}
+.cmp .foot{text-align:center;color:var(--ink-soft);font-size:14px;margin-top:20px;max-width:620px;margin-left:auto;margin-right:auto}
+
+/* reviews */
+.rev-hd{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+.rev-hd .big{font-family:"Lora",serif;font-size:30px}
+.rev-grid{columns:3;column-gap:18px;margin-top:34px}
+.rcard{break-inside:avoid;background:var(--white);border:1px solid var(--line);border-radius:var(--r);
+  padding:18px;margin-bottom:18px;box-shadow:var(--shadow-sm)}
+.rcard .ph{aspect-ratio:4/3;border-radius:10px;margin-bottom:12px;display:grid;place-items:center;overflow:hidden}
+.rcard .ph svg{width:100%;height:100%}
+.rcard .stars{font-size:13px}
+.rcard p{font-size:14.5px;margin:8px 0 12px}
+.rwho{display:flex;align-items:center;gap:10px}
+.rav{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;
+  font-size:13px;flex:none}
+.rwho b{font-size:13.5px;display:block}
+.rwho small{color:var(--teal-deep);font-size:11.5px;font-weight:600;display:flex;align-items:center;gap:4px}
+@media(max-width:980px){.rev-grid{columns:2}}
+@media(max-width:620px){.rev-grid{columns:1}}
+
+/* cross-sell */
+.xrow{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.xcard{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:14px;text-align:center}
+.xcard .xi{aspect-ratio:1/1;background:var(--cream);border-radius:10px;display:grid;place-items:center;margin-bottom:10px}
+.xcard .xi svg{width:64%;height:64%;opacity:.85}
+.xcard h4{font-family:"Instrument Sans";font-size:13.5px;font-weight:600;line-height:1.3;margin-bottom:6px}
+.xcard .xr{font-size:11px;color:var(--gold);margin-bottom:4px}
+.xcard .xp{font-weight:800;color:var(--red);font-size:15px;margin-bottom:10px}
+.xcard .xp small{color:var(--ink-faint);text-decoration:line-through;font-weight:600;font-size:12px;margin-left:5px}
+.xcard .xbtn{display:block;background:var(--black);color:#fff;font-size:13px;font-weight:700;padding:9px;border-radius:8px}
+@media(max-width:860px){.xrow{grid-template-columns:repeat(2,1fr)}}
+
+/* trust bar */
+.tbar{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--white)}
+.tbar-in{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:26px 0}
+.tb{display:flex;align-items:center;gap:12px;justify-content:center}
+.tb svg{color:var(--teal-deep);flex:none}
+.tb b{font-size:14px;display:block}
+.tb small{color:var(--ink-faint);font-size:12px}
+@media(max-width:760px){.tbar-in{grid-template-columns:repeat(2,1fr);gap:22px}}
+
+/* footer */
+footer{background:var(--navy);color:#AEB3BE;padding:52px 0 120px;font-size:14px}
+.foot-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:32px}
+.foot-top h4{color:#fff;font-family:"Instrument Sans";font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 14px}
+.foot-top a{display:block;margin-bottom:9px;color:#AEB3BE}
+.foot-top a:hover{color:#fff}
+.foot-logo{font-family:"Lora",serif;font-size:26px;letter-spacing:.2em;color:#fff;display:flex;align-items:center;gap:9px;margin-bottom:12px}
+.pay{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}
+.pay span{background:#fff;color:#22262F;font-weight:800;font-size:10px;padding:5px 8px;border-radius:5px;letter-spacing:.02em}
+.foot-legal{border-top:1px solid #333844;margin-top:36px;padding-top:20px;display:flex;justify-content:space-between;
+  gap:12px;flex-wrap:wrap;font-size:12.5px;color:#7C8290}
+@media(max-width:860px){.foot-top{grid-template-columns:1fr 1fr}}
+
+/* sticky mobile ATC */
+.satc{position:fixed;left:0;right:0;bottom:0;z-index:90;background:#fff;border-top:1px solid var(--line);
+  box-shadow:0 -8px 24px -14px rgba(0,0,0,.25);padding:10px 16px;display:none;align-items:center;gap:12px;
+  transform:translateY(110%);transition:transform .3s}
+.satc.show{transform:none}
+.satc .si{flex:1;min-width:0}
+.satc .si b{font-size:14px;display:block}
+.satc .si small{color:var(--ink-faint);font-size:12px}
+.satc .sp{font-weight:800;color:var(--red);font-size:18px}
+.satc .btn{padding:13px 18px;font-size:14px}
+@media(max-width:860px){.satc{display:flex}}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
+</style>
+
+<!-- ===== ANNOUNCEMENT ===== -->
+<div class="announce"><b>Fri fragt over 599 kr</b><span class="sep">·</span>1–2 dages levering<span class="sep">·</span><b>Pengene tilbage i 100 dage</b> – også selvom maskinen er brugt</div>
+
+<!-- ===== HEADER ===== -->
+<header class="site">
+  <div class="wrap hd">
+    <a class="logo" href="#top">
+      <svg class="eye" viewBox="0 0 40 40" fill="none"><ellipse cx="20" cy="20" rx="18" ry="11" stroke="#2FA79C" stroke-width="2.4"/><circle cx="20" cy="20" r="5.5" fill="#2FA79C"/></svg>
+      AVA</a>
+    <div class="search"><input placeholder="Søg efter produkter…" aria-label="Søg"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg></div>
+    <div class="hd-right">
+      <a class="hide" href="#faq">Hjælp</a>
+      <a class="hide" href="#anmeldelser">Anmeldelser</a>
+      <a class="hd-cart" href="#buy"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M6 6 5 3H2"/></svg> Kurv</a>
+    </div>
+  </div>
+  <nav class="catnav"><div class="wrap">
+    <a href="#">Wellness</a><a href="#">Massage</a><a href="#">Kropspleje</a><a href="#">Hår &amp; hud</a>
+    <a href="#">Fødder &amp; ben</a><a href="#">Søvn</a><a href="#" class="red">Tilbud</a><a href="#">Om os</a>
+  </div></nav>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="top">
+  <div class="wrap hero-in">
+    <!-- gallery -->
+    <div class="gallery reveal in">
+      <div class="gmain">
+        <div class="burst">FAST<br>LAV PRIS</div>
+        <!-- chi machine SVG -->
+        <svg viewBox="0 0 460 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Premium Chi Maskine">
+          <defs>
+            <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#E3E6EC"/></linearGradient>
+            <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0D9C6"/><stop offset="1" stop-color="#E3C3A9"/></linearGradient>
+          </defs>
+          <ellipse cx="230" cy="330" rx="170" ry="24" fill="#000" opacity=".06"/>
+          <!-- sway arcs -->
+          <path d="M150 300 q80 34 160 0" fill="none" stroke="#2FA79C" stroke-width="3" stroke-dasharray="4 8" stroke-linecap="round" opacity=".7"/>
+          <path d="M140 174 l-14 -12 m0 12 l14 -12" stroke="#2FA79C" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M320 174 l14 -12 m0 12 l-14 -12" stroke="#2FA79C" stroke-width="3.5" stroke-linecap="round"/>
+          <!-- legs / calves resting -->
+          <path d="M196 60 q-8 70 4 118 q4 20 24 20 q20 0 22 -22 q6 -66 -6 -118 q-4 -20 -22 -20 q-18 0 -22 22Z" fill="url(#skin)" stroke="#D8B99E" stroke-width="2"/>
+          <path d="M250 60 q-6 70 6 118 q4 20 24 20 q20 0 21 -22 q4 -66 -8 -118 q-4 -20 -22 -20 q-18 0 -21 22Z" fill="url(#skin)" stroke="#D8B99E" stroke-width="2"/>
+          <!-- feet on cradle -->
+          <ellipse cx="220" cy="196" rx="26" ry="16" fill="url(#skin)" stroke="#D8B99E" stroke-width="2"/>
+          <ellipse cx="278" cy="196" rx="26" ry="16" fill="url(#skin)" stroke="#D8B99E" stroke-width="2"/>
+          <!-- machine body -->
+          <rect x="120" y="210" width="220" height="78" rx="22" fill="url(#metal)" stroke="#CDD2DA" stroke-width="2"/>
+          <rect x="120" y="262" width="220" height="26" rx="13" fill="#D2D7DF"/>
+          <!-- cradle cushions -->
+          <ellipse cx="220" cy="210" rx="34" ry="13" fill="#2FA79C" opacity=".9"/>
+          <ellipse cx="278" cy="210" rx="34" ry="13" fill="#2FA79C" opacity=".9"/>
+          <!-- control panel -->
+          <rect x="150" y="230" width="70" height="24" rx="7" fill="#fff" stroke="#CDD2DA"/>
+          <circle cx="165" cy="242" r="5" fill="#2FA79C"/><rect x="178" y="239" width="30" height="5" rx="2.5" fill="#C4C9D2"/>
+          <circle cx="300" cy="238" r="10" fill="#fff" stroke="#CDD2DA"/><path d="M300 233v5l3 3" stroke="#22262F" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="thumbs">
+        <div class="thumb act" aria-label="Produkt"><svg viewBox="0 0 40 40"><rect x="7" y="18" width="26" height="12" rx="4" fill="#C9CED6"/><ellipse cx="15" cy="18" rx="5" ry="2.5" fill="#2FA79C"/><ellipse cx="25" cy="18" rx="5" ry="2.5" fill="#2FA79C"/></svg></div>
+        <div class="thumb" aria-label="I brug"><svg viewBox="0 0 40 40"><rect x="6" y="22" width="28" height="6" rx="3" fill="#C9CED6"/><circle cx="12" cy="16" r="4" fill="#E3C3A9"/><path d="M15 18h14" stroke="#E3C3A9" stroke-width="4" stroke-linecap="round"/></svg></div>
+        <div class="thumb" aria-label="Detalje"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="11" fill="none" stroke="#2FA79C" stroke-width="3"/><path d="M20 15v5l3 3" stroke="#22262F" stroke-width="2.5" stroke-linecap="round"/></svg></div>
+        <div class="thumb" aria-label="Fjernbetjening"><svg viewBox="0 0 40 40"><rect x="14" y="8" width="12" height="24" rx="4" fill="#D2D7DF"/><circle cx="20" cy="15" r="2.5" fill="#2FA79C"/></svg></div>
+        <div class="thumb" aria-label="Video"><svg viewBox="0 0 40 40"><rect x="7" y="10" width="26" height="20" rx="4" fill="#22262F"/><path d="M18 16v8l7-4z" fill="#fff"/></svg></div>
+      </div>
+    </div>
+
+    <!-- product info -->
+    <div class="pinfo reveal in" id="buy">
+      <div class="prate"><span class="stars">★★★★★</span> 4,9 · <a href="#anmeldelser" style="color:var(--ink-soft);text-decoration:underline">1.246 anmeldelser</a></div>
+      <h1>Premium Chi Maskine — Få ro i kroppen på 15 minutter</h1>
+      <p class="psub">Læg dig ned, tænd for maskinen, og lad den blødt vugge kroppen fra side til side.</p>
+      <ul class="pbul">
+        <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span> Løsner spændinger i ryg, hofter og ben</li>
+        <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span> Bare læg dig ned — maskinen gør arbejdet</li>
+        <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span> Bedre kredsløb og lettere ben efter en lang dag</li>
+        <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span> Falder lettere til ro — perfekt før sengetid</li>
+      </ul>
+
+      <div class="price-row">
+        <span class="price-now" id="pnow">1.299 kr</span>
+        <span class="price-old" id="pold">2.999 kr</span>
+        <span class="price-save" id="psave">Spar 1.700 kr</span>
+      </div>
+
+      <div class="qty-packs" id="packs">
+        <div class="qp sel" data-n="1" data-now="1.299" data-old="2.999" data-save="1.700"><b>1 stk.</b><small>1.299 kr</small></div>
+        <div class="qp" data-n="2" data-now="2.199" data-old="5.998" data-save="3.799"><span class="tag">Spar mest</span><b>2 stk.</b><small>1.099 kr/stk</small></div>
+      </div>
+
+      <button class="btn block lg" id="atc">Læg i kurv →</button>
+
+      <div class="trustline">
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg> Fri fragt over 599 kr</span>
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg> 1–2 dages levering</span>
+        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg> Køb nu, betal senere</span>
+      </div>
+
+      <div class="retbox">
+        <svg class="eye" viewBox="0 0 40 40" fill="none"><ellipse cx="20" cy="20" rx="17" ry="10" stroke="#1F8579" stroke-width="2.4"/><circle cx="20" cy="20" r="5" fill="#1F8579"/></svg>
+        <div>
+          <b>Fri gratis retur i 100 dage</b>
+          <p>Prøv Chi Maskinen derhjemme. Er du ikke tilfreds, sender du den bare tilbage — pengene tilbage, også selvom den er brugt.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ (hoisted, AVA-style) ===== -->
+<section class="pad cream" id="faq" style="padding-top:56px">
+  <div class="wrap">
+    <div class="shead reveal"><h2>Ofte stillede spørgsmål</h2></div>
+    <div class="faq reveal">
+      <details class="qa"><summary>Hvad kan Chi Maskinen hjælpe med?</summary><div class="a">Den blødt vuggende bevægelse løsner spændinger i ryg, hofter og ben, sætter gang i kredsløbet og hjælper kroppen med at falde til ro. Mange bruger den til bedre søvn og lettere ben.</div></details>
+      <details class="qa"><summary>Hvor hurtigt mærker jeg forskel?</summary><div class="a">De fleste mærker en behagelig ro og lethed allerede efter de første par gange. Effekten på stivhed og kredsløb bygger sig op over 1–2 ugers daglig brug.</div></details>
+      <details class="qa"><summary>Hvor lang tid skal jeg bruge den?</summary><div class="a">10–15 minutter ad gangen er nok. Læg dig ned, tænd den, og lad maskinen gøre arbejdet — gerne om aftenen.</div></details>
+      <details class="qa"><summary>Kan jeg bruge den hver dag?</summary><div class="a">Ja. Chi Maskinen er skånsom og lavet til daglig brug. Den er særligt rar før sengetid.</div></details>
+      <details class="qa"><summary>Er den svær at komme i gang med?</summary><div class="a">Slet ikke. Du lægger dine ankler på maskinen, trykker på start og slapper af. Ingen træning, ingen booking.</div></details>
+      <details class="qa"><summary>Hvad hvis den ikke virker for mig?</summary><div class="a">Du har 100 dages fri retur. Er du ikke tilfreds, sender du den bare tilbage — pengene tilbage, også selvom den er brugt.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BENEFIT BLOCKS ===== -->
+<section class="pad">
+  <div class="wrap">
+    <div class="bblock reveal">
+      <div class="bimg" style="background:linear-gradient(135deg,#EAF4F2,#F5F0E7)">
+        <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg" aria-label="Ro i kroppen">
+          <rect x="60" y="200" width="280" height="10" rx="5" fill="#D9D2C4"/>
+          <path d="M70 200 q30 -14 70 0" stroke="#C9CED6" stroke-width="8" fill="none" stroke-linecap="round"/>
+          <ellipse cx="250" cy="188" rx="16" ry="12" fill="#E3C3A9"/>
+          <path d="M110 196 h150" stroke="#E3C3A9" stroke-width="16" stroke-linecap="round"/>
+          <g stroke="#2FA79C" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8">
+            <path d="M200 120 q14 -14 28 0"/><path d="M188 100 q26 -22 52 0"/><path d="M176 80 q38 -30 76 0"/></g>
+          <text x="300" y="90" font-family="Lora,serif" font-size="34" fill="#2FA79C">z</text>
+          <text x="318" y="72" font-family="Lora,serif" font-size="24" fill="#2FA79C">z</text>
+        </svg>
+      </div>
+      <div class="btext">
+        <h2>Når kroppen ikke vil falde til ro</h2>
+        <p>Den blide vuggen aktiverer kroppens naturlige afspænding, så skuldre, nakke og lænd slipper dagens spændinger.</p>
+        <p>10–15 minutter før sengetid — så er kroppen klar til en dyb, rolig søvn.</p>
+        <span class="mini">🌙 Perfekt før sengetid</span>
+      </div>
+    </div>
+
+    <div class="bblock rev reveal">
+      <div class="bimg" style="background:linear-gradient(135deg,#EAF4F2,#F5F0E7)">
+        <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg" aria-label="Stiv ryg">
+          <path d="M200 40 q-34 40 -30 100 q4 60 30 140" fill="none" stroke="#C7B7A6" stroke-width="30" stroke-linecap="round" opacity=".5"/>
+          <g filter="url(#g)"><path d="M200 60 q-14 100 0 210" fill="none" stroke="#3FCB8E" stroke-width="6" stroke-linecap="round"/></g>
+          <path d="M200 60 q-14 100 0 210" fill="none" stroke="#3FCB8E" stroke-width="6" stroke-linecap="round"/>
+          <g fill="#3FCB8E"><circle cx="197" cy="90" r="6"/><circle cx="193" cy="130" r="6"/><circle cx="193" cy="170" r="6"/><circle cx="196" cy="210" r="6"/><circle cx="200" cy="250" r="6"/></g>
+          <filter id="g" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+        </svg>
+      </div>
+      <div class="btext">
+        <h2>Til stiv ryg, hofter og ben</h2>
+        <p>Når rygsøjlen vugges blidt fra side til side, løsnes små spændinger langs ryggen — helt uden anstrengelse.</p>
+        <p>Du skal ikke presse kroppen. Bare læg dig ned, så gør maskinen arbejdet.</p>
+        <span class="mini">🌿 Blid, skånsom bevægelse</span>
+      </div>
+    </div>
+
+    <div class="bblock reveal">
+      <div class="bimg" style="background:linear-gradient(135deg,#FBEDEA,#F5F0E7)">
+        <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg" aria-label="Lettere ben">
+          <path d="M170 40 q-16 90 -6 150 q6 40 -6 90" fill="none" stroke="#E3C3A9" stroke-width="30" stroke-linecap="round" opacity=".55"/>
+          <path d="M215 40 q16 90 6 150 q-6 40 6 90" fill="none" stroke="#E3C3A9" stroke-width="30" stroke-linecap="round" opacity=".55"/>
+          <g stroke="#E0322B" stroke-width="3.5" fill="none" stroke-linecap="round">
+            <path d="M170 260 q-6 -100 0 -200"/><path d="M222 260 q6 -100 0 -200"/></g>
+          <g fill="#E0322B"><path d="M170 90 l-6 10 h12z"/><path d="M222 90 l-6 10 h12z"/><path d="M168 150 l-6 10 h12z"/><path d="M224 150 l-6 10 h12z"/></g>
+        </svg>
+      </div>
+      <div class="btext">
+        <h2>Lettere ben efter lange dage</h2>
+        <p>Efter mange timer på benene kan bevægelsen hjælpe blodet tilbage og reducere den tunge, hovne fornemmelse.</p>
+        <p>Den milde side-til-side-bevægelse mærkes helt op i benene — perfekt som en daglig nulstilling.</p>
+        <span class="mini">💧 Sæt gang i kredsløbet</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COMPARISON ===== -->
+<section class="pad cream">
+  <div class="wrap">
+    <div class="shead reveal"><h2>Sådan sammenligner vi</h2><p>Den nemmeste vej til ro i kroppen, uden booking, transport eller anstrengelse.</p></div>
+    <div class="cmp reveal">
+      <table>
+        <thead><tr>
+          <th style="background:transparent"></th>
+          <th class="us">Chi Maskinen<br><span class="tag">Bestseller</span></th>
+          <th>Massage &amp; fys<br><span class="tag grey">Dyrt</span></th>
+          <th>Øvelser &amp; udstræk<br><span class="tag grey">Kræver tid</span></th>
+        </tr></thead>
+        <tbody>
+          <tr><td>Kan bruges hjemme, når som helst</td><td class="us"><span class="ck-y">✓</span></td><td><span class="ck-n">✕</span></td><td><span class="ck-y">✓</span></td></tr>
+          <tr><td>Ingen booking eller transport</td><td class="us"><span class="ck-y">✓</span></td><td><span class="ck-n">✕</span></td><td><span class="ck-y">✓</span></td></tr>
+          <tr><td>Kræver ingen anstrengelse</td><td class="us"><span class="ck-y">✓</span></td><td><span class="ck-y">✓</span></td><td><span class="ck-n">✕</span></td></tr>
+          <tr><td>Mærkbar effekt på 10–15 min</td><td class="us"><span class="ck-y">✓</span></td><td><span class="ck-y">✓</span></td><td><span class="ck-n">✕</span></td></tr>
+          <tr><td>Engangskøb — ingen løbende udgift</td><td class="us"><span class="ck-y">✓</span></td><td><span class="ck-n">✕</span></td><td><span class="ck-y">✓</span></td></tr>
+        </tbody>
+      </table>
+      <p class="foot">Kort sagt: Chi Maskinen kombinerer det bedste — du skal bare lægge dig ned, og maskinen gør arbejdet.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REVIEWS ===== -->
+<section class="pad" id="anmeldelser">
+  <div class="wrap">
+    <div class="rev-hd reveal"><span class="big">4,9</span><span class="stars" style="font-size:22px">★★★★★</span><span style="color:var(--ink-soft);font-weight:600">1.246 anmeldelser · under 1% sender retur</span></div>
+    <div class="shead reveal" style="margin-bottom:0"><p>Rigtige kunder, rigtige resultater.</p></div>
+    <div class="rev-grid">
+      <div class="rcard reveal"><div class="ph" style="background:linear-gradient(135deg,#EAF4F2,#DCEFEC)"><svg viewBox="0 0 200 150"><rect x="60" y="80" width="80" height="26" rx="8" fill="#C9CED6"/><ellipse cx="80" cy="80" rx="12" ry="5" fill="#2FA79C"/><ellipse cx="120" cy="80" rx="12" ry="5" fill="#2FA79C"/></svg></div><div class="stars">★★★★★</div><p>"Jeg sover meget bedre efter jeg begyndte at bruge den 15 min før sengetid. Mine ben føles lettere om morgenen."</p><div class="rwho"><span class="rav" style="background:#5B6BD6">MK</span><div><b>Mette K.</b><small>✓ Verificeret køb</small></div></div></div>
+      <div class="rcard reveal"><div class="stars">★★★★★</div><p>"Har haft ømme lænd i årevis. 10 minutter om dagen har gjort en kæmpe forskel — og jeg skal ikke selv gøre noget."</p><div class="rwho"><span class="rav" style="background:#2FA79C">JP</span><div><b>Jørgen P.</b><small>✓ Verificeret køb</small></div></div></div>
+      <div class="rcard reveal"><div class="ph" style="background:linear-gradient(135deg,#FBEDEA,#F3E6DF)"><svg viewBox="0 0 200 150"><path d="M60 110 q40 -30 80 0" stroke="#E3C3A9" stroke-width="14" fill="none" stroke-linecap="round"/><circle cx="100" cy="60" r="16" fill="#E3C3A9"/></svg></div><div class="stars">★★★★★</div><p>"Nem at bruge, man skal bare lægge sig ned. Min mand og jeg deles om den hver aften foran fjernsynet."</p><div class="rwho"><span class="rav" style="background:#C98A3B">HL</span><div><b>Hanne L.</b><small>✓ Verificeret køb</small></div></div></div>
+      <div class="rcard reveal"><div class="stars">★★★★☆</div><p>"Troede først det var for godt til at være sandt, men mine hovne ben efter arbejde er blevet meget bedre."</p><div class="rwho"><span class="rav" style="background:#8A6BD6">AS</span><div><b>Anette S.</b><small>✓ Verificeret køb</small></div></div></div>
+      <div class="rcard reveal"><div class="ph" style="background:linear-gradient(135deg,#EAF0F5,#E3E8EF)"><svg viewBox="0 0 200 150"><rect x="55" y="70" width="90" height="30" rx="9" fill="#C9CED6"/><circle cx="150" cy="60" r="12" fill="none" stroke="#2FA79C" stroke-width="4"/></svg></div><div class="stars">★★★★★</div><p>"God kvalitet og hurtig levering. Bruger den mens jeg ser tv — 15 minutter og jeg er helt afslappet."</p><div class="rwho"><span class="rav" style="background:#4E8DD6">TE</span><div><b>Thomas E.</b><small>✓ Verificeret køb</small></div></div></div>
+      <div class="rcard reveal"><div class="stars">★★★★★</div><p>"Perfekt til at slappe af efter en lang dag på arbejde. Anbefales til alle med tunge ben og stiv ryg."</p><div class="rwho"><span class="rav" style="background:#D6685B">KB</span><div><b>Karin B.</b><small>✓ Verificeret køb</small></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CROSS-SELL ===== -->
+<section class="pad cream">
+  <div class="wrap">
+    <div class="shead reveal" style="margin-bottom:30px"><h2>Andre købte også</h2></div>
+    <div class="xrow reveal">
+      <div class="xcard"><div class="xi"><svg viewBox="0 0 40 40"><rect x="8" y="20" width="24" height="12" rx="4" fill="#C9CED6"/><path d="M12 20v-6M20 20v-8M28 20v-6" stroke="#2FA79C" stroke-width="3" stroke-linecap="round"/></svg></div><div class="xr">★★★★★</div><h4>Fod- &amp; lægmassage-pude med varme</h4><div class="xp">899 kr <small>1.499 kr</small></div><a class="xbtn" href="#">Læg i kurv</a></div>
+      <div class="xcard"><div class="xi"><svg viewBox="0 0 40 40"><circle cx="20" cy="18" r="10" fill="none" stroke="#C9CED6" stroke-width="4"/><path d="M20 28v8" stroke="#C9CED6" stroke-width="4" stroke-linecap="round"/></svg></div><div class="xr">★★★★☆</div><h4>Bærbar nakke- &amp; skuldermassage</h4><div class="xp">549 kr <small>899 kr</small></div><a class="xbtn" href="#">Læg i kurv</a></div>
+      <div class="xcard"><div class="xi"><svg viewBox="0 0 40 40"><rect x="9" y="12" width="22" height="16" rx="4" fill="#C9CED6"/><circle cx="20" cy="20" r="4" fill="#2FA79C"/></svg></div><div class="xr">★★★★★</div><h4>Massagepistol Mini — 4 hoveder</h4><div class="xp">699 kr <small>1.199 kr</small></div><a class="xbtn" href="#">Læg i kurv</a></div>
+      <div class="xcard"><div class="xi"><svg viewBox="0 0 40 40"><path d="M12 30V16a8 8 0 0116 0v14" fill="none" stroke="#C9CED6" stroke-width="4"/><path d="M12 30h16" stroke="#2FA79C" stroke-width="4" stroke-linecap="round"/></svg></div><div class="xr">★★★★★</div><h4>Gå-bånd til hjemmet — sammenklappeligt</h4><div class="xp">1.799 kr <small>2.999 kr</small></div><a class="xbtn" href="#">Læg i kurv</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TRUST BAR ===== -->
+<div class="tbar"><div class="wrap tbar-in">
+  <div class="tb reveal"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="6" width="14" height="11" rx="2"/><path d="M15 9h4l3 3v5h-7z"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg><div><b>Levering 1–2 dage</b><small>Med DAO, GLS &amp; Brink</small></div></div>
+  <div class="tb reveal"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2 4 5v6c0 5 3.5 8 8 11 4.5-3 8-6 8-11V5z"/><path d="M9 12l2 2 4-4"/></svg><div><b>E-mærket webshop</b><small>Tryg og sikker handel</small></div></div>
+  <div class="tb reveal"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg><div><b>Gratis fragt</b><small>Over 599 kr</small></div></div>
+  <div class="tb reveal"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a9 9 0 109-9"/><path d="M3 4v5h5"/></svg><div><b>100 dages retur</b><small>Pengene tilbage — selv brugt</small></div></div>
+</div></div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <div class="foot-logo"><svg width="26" height="26" viewBox="0 0 40 40" fill="none"><ellipse cx="20" cy="20" rx="17" ry="10" stroke="#fff" stroke-width="2.4"/><circle cx="20" cy="20" r="5" fill="#fff"/></svg>AVA</div>
+        <p>Vi udvælger produkter til krop og velvære i hverdagen. Sendt fra Kjellerup siden 2021 — over 100.000 ordrer i DK, NO &amp; SE.</p>
+        <div class="pay"><span>MobilePay</span><span>Dankort</span><span>VISA</span><span>Mastercard</span></div>
+      </div>
+      <div><h4>Kundeservice</h4><a href="#">Levering</a><a href="#">Returnering</a><a href="#">Fortrydelsesret</a><a href="#">Handelsbetingelser</a><a href="#">Privatlivspolitik</a></div>
+      <div><h4>Om AVA</h4><a href="#">Om os</a><a href="#">Kontakt</a><a href="#anmeldelser">Anmeldelser</a><a href="#">Blog</a></div>
+      <div><h4>Kontakt</h4><a href="#">kontakt@avabeauty.dk</a><a href="#">Man–fre 9–16</a><a href="#">Industriparken 21, 8620 Kjellerup</a><div class="pay" style="margin-top:16px"><span>dao</span><span>GLS</span><span>Brink</span></div></div>
+    </div>
+    <div class="foot-legal"><span>© 2026 AVA Beauty ApS · CVR 00000000</span><span>Demo-side bygget som interview-case — ikke en officiel AVA-side.</span></div>
+  </div>
+</footer>
+
+<!-- ===== STICKY MOBILE ATC ===== -->
+<div class="satc" id="satc">
+  <div class="si"><b>Premium Chi Maskine</b><small id="ssave">Spar 1.700 kr · 100 dages retur</small></div>
+  <div class="sp" id="sprice">1.299 kr</div>
+  <a href="#buy" class="btn">Læg i kurv</a>
+</div>
+
+<script>
+/* pack selector */
+(function(){
+  var packs=document.querySelectorAll('#packs .qp');
+  var pnow=document.getElementById('pnow'),pold=document.getElementById('pold'),psave=document.getElementById('psave'),
+      atc=document.getElementById('atc'),sprice=document.getElementById('sprice'),ssave=document.getElementById('ssave');
+  function sel(p){
+    packs.forEach(function(x){x.classList.remove('sel')});p.classList.add('sel');
+    pnow.textContent=p.dataset.now+' kr';pold.textContent=p.dataset.old+' kr';psave.textContent='Spar '+p.dataset.save+' kr';
+    atc.textContent='Læg i kurv →';sprice.textContent=p.dataset.now+' kr';ssave.textContent='Spar '+p.dataset.save+' kr · 100 dages retur';
+  }
+  packs.forEach(function(p){p.addEventListener('click',function(){sel(p)})});
+})();
+/* reveal */
+(function(){var els=document.querySelectorAll('.reveal:not(.in)');
+  if(!('IntersectionObserver'in window)){els.forEach(function(e){e.classList.add('in')});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  els.forEach(function(e){io.observe(e)});
+})();
+/* sticky atc */
+(function(){var s=document.getElementById('satc'),buy=document.getElementById('buy');
+  window.addEventListener('scroll',function(){var b=buy.getBoundingClientRect();
+    s.classList.toggle('show', b.bottom<0 || b.top>window.innerHeight);
+  },{passive:true});
+})();
+</script>
