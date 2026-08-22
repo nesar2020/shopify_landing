@@ -1,8 +1,46 @@
-# SØVN Night — Shopify Landing Page Demo
+# AVA — Shopify Landing Page Demos
+
+Conversion-focused product landing pages built with **Claude Code** as an
+interview demo for a Shopify landing-page role at AVA Beauty.
+
+## AVA Chi Maskine page (brand-matched)
+
+`preview/chi-maskine.html` is a standalone landing page for the **Premium Chi
+Maskine**, rebuilt to match AVA Beauty's real design system (white + cream bands,
+black CTAs, red price anchoring, teal accent, serif headings, Danish copy, the
+FAQ-under-hero layout, comparison table, and local trust: MobilePay/Dankort,
+100-dages retur, E-mærket).
+
+Deployable theme files for this page:
+
+| Path | What it is |
+|---|---|
+| `shopify/layout/landing.liquid` | Minimal layout — **no theme header/footer** (clean ad landing page) |
+| `shopify/sections/ava-chi-landing.liquid` | The whole page as a self-contained section (inline CSS/JS + SVG art) |
+| `shopify/templates/page.chi-maskine.liquid` | Page template that mounts the section using the landing layout |
+
+### Deploy the Chi Maskine page to Shopify
+
+```bash
+npm install -g @shopify/cli @shopify/theme
+shopify theme pull --store frp4rj-hd.myshopify.com            # or your store
+cp shopify/layout/landing.liquid                <theme>/layout/
+cp shopify/sections/ava-chi-landing.liquid      <theme>/sections/
+cp shopify/templates/page.chi-maskine.liquid    <theme>/templates/
+shopify theme dev --store frp4rj-hd.myshopify.com            # live preview
+shopify theme push                                           # deploy
+```
+
+Then in **Shopify admin → Online Store → Pages**, create a page (e.g. handle
+`chi-maskine`) and set its **Theme template** to `chi-maskine`. It renders at
+`/pages/chi-maskine` with no store header/footer — ideal for paid traffic.
+
+---
+
+## SØVN Night page (original demo)
 
 A conversion-focused product landing page for a fictional Nordic wellness brand
-(**SØVN Night**, a magnesium sleep drink), built with **Claude Code** as an
-interview demo for a Shopify landing-page role.
+(**SØVN Night**, a magnesium sleep drink).
 
 It ships in two forms so it can be shown live *and* deployed into a real store:
 
