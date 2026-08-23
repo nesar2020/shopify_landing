@@ -1,3 +1,12 @@
+{%- comment -%} Real product photos: pull from Settings > Files by name, fall back to SVG art {%- endcomment -%}
+{%- assign _exts = 'jpg,jpeg,png,webp' | split: ',' -%}
+{%- assign hero_url = '' -%}{%- assign benefit_sleep_url = '' -%}{%- assign benefit_back_url = '' -%}{%- assign benefit_legs_url = '' -%}
+{%- for e in _exts -%}
+  {%- if hero_url == blank -%}{%- assign _t = 'hero-main.' | append: e | file_url -%}{%- if _t != blank -%}{%- assign hero_url = _t -%}{%- endif -%}{%- endif -%}
+  {%- if benefit_sleep_url == blank -%}{%- assign _t = 'benefit-sleep.' | append: e | file_url -%}{%- if _t != blank -%}{%- assign benefit_sleep_url = _t -%}{%- endif -%}{%- endif -%}
+  {%- if benefit_back_url == blank -%}{%- assign _t = 'benefit-back.' | append: e | file_url -%}{%- if _t != blank -%}{%- assign benefit_back_url = _t -%}{%- endif -%}{%- endif -%}
+  {%- if benefit_legs_url == blank -%}{%- assign _t = 'benefit-legs.' | append: e | file_url -%}{%- if _t != blank -%}{%- assign benefit_legs_url = _t -%}{%- endif -%}{%- endif -%}
+{%- endfor -%}
 <style>
 /* AVA-consistent design system — single light look, explicit colors (brand fidelity) */
 :root{
@@ -235,6 +244,8 @@ footer{background:var(--navy);color:#AEB3BE;padding:52px 0 120px;font-size:14px}
 .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
 .reveal.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
+.gmain-img{width:100%;height:100%;object-fit:contain;border-radius:var(--r-lg)}
+.bimg-img{width:100%;height:100%;object-fit:cover;display:block}
 </style>
 
 <!-- ===== ANNOUNCEMENT ===== -->
@@ -267,7 +278,7 @@ footer{background:var(--navy);color:#AEB3BE;padding:52px 0 120px;font-size:14px}
       <div class="gmain">
         <div class="burst">FAST<br>LAV PRIS</div>
         <!-- chi machine SVG -->
-        <svg viewBox="0 0 460 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Premium Chi Maskine">
+        {% if hero_url != blank %}<img class="gmain-img" src="{{ hero_url }}" alt="Premium Chi Maskine" loading="eager" onerror="this.remove()">{% else %}<svg viewBox="0 0 460 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Premium Chi Maskine">
           <defs>
             <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#E3E6EC"/></linearGradient>
             <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0D9C6"/><stop offset="1" stop-color="#E3C3A9"/></linearGradient>
@@ -293,7 +304,7 @@ footer{background:var(--navy);color:#AEB3BE;padding:52px 0 120px;font-size:14px}
           <rect x="150" y="230" width="70" height="24" rx="7" fill="#fff" stroke="#CDD2DA"/>
           <circle cx="165" cy="242" r="5" fill="#2FA79C"/><rect x="178" y="239" width="30" height="5" rx="2.5" fill="#C4C9D2"/>
           <circle cx="300" cy="238" r="10" fill="#fff" stroke="#CDD2DA"/><path d="M300 233v5l3 3" stroke="#22262F" stroke-width="2" stroke-linecap="round"/>
-        </svg>
+        </svg>{% endif %}
       </div>
       <div class="thumbs">
         <div class="thumb act" aria-label="Produkt"><svg viewBox="0 0 40 40"><rect x="7" y="18" width="26" height="12" rx="4" fill="#C9CED6"/><ellipse cx="15" cy="18" rx="5" ry="2.5" fill="#2FA79C"/><ellipse cx="25" cy="18" rx="5" ry="2.5" fill="#2FA79C"/></svg></div>
@@ -366,7 +377,7 @@ footer{background:var(--navy);color:#AEB3BE;padding:52px 0 120px;font-size:14px}
   <div class="wrap">
     <div class="bblock reveal">
       <div class="bimg" style="background:linear-gradient(135deg,#EAF4F2,#F5F0E7)">
-        <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg" aria-label="Ro i kroppen">
+        {% if benefit_sleep_url != blank %}<img class="bimg-img" src="{{ benefit_sleep_url }}" alt="Ro i kroppen" loading="lazy" onerror="this.remove()">{% else %}<svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg" aria-label="Ro i kroppen">
           <rect x="60" y="200" width="280" height="10" rx="5" fill="#D9D2C4"/>
           <path d="M70 200 q30 -14 70 0" stroke="#C9CED6" stroke-width="8" fill="none" stroke-linecap="round"/>
           <ellipse cx="250" cy="188" rx="16" ry="12" fill="#E3C3A9"/>
@@ -375,7 +386,7 @@ footer{background:var(--navy);color:#AEB3BE;padding:52px 0 120px;font-size:14px}
             <path d="M200 120 q14 -14 28 0"/><path d="M188 100 q26 -22 52 0"/><path d="M176 80 q38 -30 76 0"/></g>
           <text x="300" y="90" font-family="Lora,serif" font-size="34" fill="#2FA79C">z</text>
           <text x="318" y="72" font-family="Lora,serif" font-size="24" fill="#2FA79C">z</text>
-        </svg>
+        </svg>{% endif %}
       </div>
       <div class="btext">
         <h2>Når kroppen ikke vil falde til ro</h2>
@@ -387,13 +398,13 @@ footer{background:var(--navy);color:#AEB3BE;padding:52px 0 120px;font-size:14px}
 
     <div class="bblock rev reveal">
       <div class="bimg" style="background:linear-gradient(135deg,#EAF4F2,#F5F0E7)">
-        <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg" aria-label="Stiv ryg">
+        {% if benefit_back_url != blank %}<img class="bimg-img" src="{{ benefit_back_url }}" alt="Til stiv ryg, hofter og ben" loading="lazy" onerror="this.remove()">{% else %}<svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg" aria-label="Stiv ryg">
           <path d="M200 40 q-34 40 -30 100 q4 60 30 140" fill="none" stroke="#C7B7A6" stroke-width="30" stroke-linecap="round" opacity=".5"/>
           <g filter="url(#g)"><path d="M200 60 q-14 100 0 210" fill="none" stroke="#3FCB8E" stroke-width="6" stroke-linecap="round"/></g>
           <path d="M200 60 q-14 100 0 210" fill="none" stroke="#3FCB8E" stroke-width="6" stroke-linecap="round"/>
           <g fill="#3FCB8E"><circle cx="197" cy="90" r="6"/><circle cx="193" cy="130" r="6"/><circle cx="193" cy="170" r="6"/><circle cx="196" cy="210" r="6"/><circle cx="200" cy="250" r="6"/></g>
           <filter id="g" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
-        </svg>
+        </svg>{% endif %}
       </div>
       <div class="btext">
         <h2>Til stiv ryg, hofter og ben</h2>
@@ -405,13 +416,13 @@ footer{background:var(--navy);color:#AEB3BE;padding:52px 0 120px;font-size:14px}
 
     <div class="bblock reveal">
       <div class="bimg" style="background:linear-gradient(135deg,#FBEDEA,#F5F0E7)">
-        <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg" aria-label="Lettere ben">
+        {% if benefit_legs_url != blank %}<img class="bimg-img" src="{{ benefit_legs_url }}" alt="Lettere ben efter lange dage" loading="lazy" onerror="this.remove()">{% else %}<svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg" aria-label="Lettere ben">
           <path d="M170 40 q-16 90 -6 150 q6 40 -6 90" fill="none" stroke="#E3C3A9" stroke-width="30" stroke-linecap="round" opacity=".55"/>
           <path d="M215 40 q16 90 6 150 q-6 40 6 90" fill="none" stroke="#E3C3A9" stroke-width="30" stroke-linecap="round" opacity=".55"/>
           <g stroke="#E0322B" stroke-width="3.5" fill="none" stroke-linecap="round">
             <path d="M170 260 q-6 -100 0 -200"/><path d="M222 260 q6 -100 0 -200"/></g>
           <g fill="#E0322B"><path d="M170 90 l-6 10 h12z"/><path d="M222 90 l-6 10 h12z"/><path d="M168 150 l-6 10 h12z"/><path d="M224 150 l-6 10 h12z"/></g>
-        </svg>
+        </svg>{% endif %}
       </div>
       <div class="btext">
         <h2>Lettere ben efter lange dage</h2>
