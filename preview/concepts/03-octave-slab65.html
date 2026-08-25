@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OCTAVE Slab 65</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ground:#101114;      /* graphite ground */
+    --panel:#16181D;       /* raised panel */
+    --panel-2:#1C1F26;
+    --alu:#C9CDD4;         /* anodized aluminium */
+    --text:#E8E6E1;        /* warm paper text */
+    --dim:rgba(232,230,225,.62);
+    --amber:#E8A33D;       /* backlit legend amber */
+    --line:rgba(201,205,212,.14);
+    --radius:8px;
+    --disp:"Sora",system-ui,sans-serif;
+    --body:"IBM Plex Sans",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);background:var(--ground);color:var(--text);line-height:1.6;font-size:16px}
+  svg{max-width:100%;display:block}
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+  @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  .mono{font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase}
+
+  /* ---------- nav ---------- */
+  header{position:sticky;top:0;z-index:50;background:rgba(16,17,20,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-family:var(--disp);font-weight:700;font-size:1.1rem;letter-spacing:.14em;text-decoration:none}
+  .logo span{color:var(--amber)}
+  .nav-right{display:flex;align-items:center;gap:26px}
+  .nav-right a:not(.btn){text-decoration:none;font-size:.9rem;font-weight:500;color:var(--dim)}
+  .nav-right a:not(.btn):hover{color:var(--text)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.8em 1.6em;border-radius:var(--radius);font-weight:600;font-size:.95rem;text-decoration:none;cursor:pointer;border:1px solid transparent;transition:transform .25s cubic-bezier(.4,0,.2,1),background .25s,border-color .25s}
+  .btn-primary{background:var(--amber);color:#181104}
+  .btn-primary:hover{background:#F0B155;transform:translateY(-1px)}
+  .btn-ghost{border-color:var(--line);color:var(--text)}
+  .btn-ghost:hover{border-color:var(--alu)}
+  @media (max-width:720px){.nav-right a:not(.btn){display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{padding:80px 0 64px;text-align:center}
+  .batch-pill{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:100px;padding:.45em 1.1em;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:28px}
+  .batch-pill i{width:7px;height:7px;border-radius:50%;background:var(--amber);animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{50%{opacity:.35}}
+  h1{font-family:var(--disp);font-weight:700;font-size:clamp(2.5rem,6vw,4.4rem);letter-spacing:-.03em;line-height:1.04;text-wrap:balance;max-width:17em;margin:0 auto}
+  h1 em{font-style:normal;color:var(--amber)}
+  .hero p.lead{margin:22px auto 34px;max-width:38em;color:var(--dim);font-size:1.1rem}
+  .hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .hero-proof{margin-top:20px;font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;color:var(--dim)}
+
+  /* keyboard */
+  .kb-stage{margin:64px auto 0;max-width:860px;perspective:900px}
+  .kb{background:linear-gradient(180deg,#2A2E36,#1E2127);border:1px solid rgba(201,205,212,.22);border-radius:12px;padding:16px;transform:rotateX(14deg);box-shadow:0 2px 4px rgba(0,0,0,.5),0 30px 60px -20px rgba(0,0,0,.75),inset 0 1px 0 rgba(201,205,212,.18)}
+  .kb-rows{display:flex;flex-direction:column;gap:7px}
+  .kb-row{display:flex;gap:7px}
+  .key{flex:1;min-width:0;overflow:hidden;aspect-ratio:auto;min-height:44px;background:linear-gradient(180deg,#22252C,#191C22);border:1px solid rgba(201,205,212,.16);border-radius:6px;color:var(--dim);font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.04em;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 0 #0B0C0F;transition:transform .06s ease,box-shadow .06s ease,color .2s;user-select:none;padding:0}
+  .key:hover{color:var(--amber)}
+  .key:active,.key.pressed{transform:translateY(3px);box-shadow:0 0 0 #0B0C0F;color:var(--amber)}
+  .key.amber{color:var(--amber);border-color:rgba(232,163,61,.5)}
+  .key.w15{flex:1.5}.key.w175{flex:1.75}.key.w2{flex:2.1}.key.w625{flex:6.25}
+  .kb-hint{margin-top:16px;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-align:center;opacity:.7}
+  @media (max-width:720px){.key{min-height:34px;font-size:.52rem;letter-spacing:0;border-radius:4px}.kb{padding:10px}.kb-rows{gap:5px}.kb-row{gap:4px}.kb-stage{margin-top:44px;perspective:none}.kb{transform:none}}
+
+  /* ---------- sections ---------- */
+  section{padding:96px 0}
+  .kick{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:16px}
+  h2{font-family:var(--disp);font-weight:700;font-size:clamp(1.8rem,3.6vw,2.6rem);letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
+  .sec-head{max-width:640px;margin-bottom:52px}
+  .sec-head p{margin-top:14px;color:var(--dim)}
+
+  /* spec sheet */
+  .specs{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  .spec{background:var(--panel);padding:26px 22px}
+  .spec dt{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:10px}
+  .spec dd{font-family:var(--disp);font-weight:600;font-size:1.35rem;letter-spacing:-.01em}
+  .spec dd small{display:block;font-family:var(--body);font-weight:400;font-size:.8rem;color:var(--dim);margin-top:4px;letter-spacing:0}
+  @media (max-width:880px){.specs{grid-template-columns:repeat(2,1fr)}}
+
+  /* force curve */
+  .force{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+  .force-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+  .force-card .mono{color:var(--dim);display:block;margin-bottom:16px}
+  .force-notes{display:flex;flex-direction:column;gap:26px}
+  .force-notes h3{font-family:var(--disp);font-weight:600;font-size:1.1rem;margin-bottom:6px}
+  .force-notes p{font-size:.95rem;color:var(--dim)}
+  .force-notes .tag{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:6px}
+  @media (max-width:880px){.force{grid-template-columns:1fr}}
+
+  /* sound / build list */
+  .build{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .build-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:28px 24px}
+  .build-card .num{font-family:var(--mono);font-size:.7rem;color:var(--amber);letter-spacing:.1em}
+  .build-card h3{font-family:var(--disp);font-weight:600;font-size:1.1rem;margin:12px 0 8px}
+  .build-card p{font-size:.93rem;color:var(--dim)}
+  @media (max-width:820px){.build{grid-template-columns:1fr}}
+
+  /* reviews */
+  .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .review{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+  .review .src{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:12px}
+  .review p{font-size:.94rem}
+  .review footer{margin-top:14px;font-size:.8rem;color:var(--dim)}
+  @media (max-width:820px){.reviews{grid-template-columns:1fr}}
+
+  /* buy */
+  .buy-band{background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .buy{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .price-line{display:flex;align-items:baseline;gap:14px;margin:16px 0 8px}
+  .price{font-family:var(--disp);font-weight:700;font-size:2.8rem;letter-spacing:-.02em}
+  .stock{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--amber)}
+  .stock-bar{height:5px;background:var(--panel-2);border-radius:100px;overflow:hidden;margin:14px 0 6px;max-width:360px}
+  .stock-bar i{display:block;height:100%;width:27%;background:var(--amber);border-radius:100px}
+  .stock-note{font-size:.85rem;color:var(--dim);margin-bottom:26px}
+  .opts{display:flex;gap:10px;margin:8px 0 28px;flex-wrap:wrap}
+  .opt{border:1px solid var(--line);border-radius:var(--radius);background:transparent;color:var(--text);font-family:var(--mono);font-size:.8rem;padding:.7em 1.2em;min-height:46px;cursor:pointer;transition:border-color .2s,color .2s}
+  .opt:hover{border-color:var(--alu)}
+  .opt[aria-pressed="true"]{border-color:var(--amber);color:var(--amber)}
+  .ship-list{list-style:none;display:flex;flex-direction:column;gap:10px;font-size:.92rem;color:var(--dim)}
+  .ship-list li{padding-left:24px;position:relative}
+  .ship-list li::before{content:"";position:absolute;left:0;top:.42em;width:12px;height:7px;border-left:2px solid var(--amber);border-bottom:2px solid var(--amber);transform:rotate(-45deg)}
+  @media (max-width:880px){.buy{grid-template-columns:1fr}}
+
+  /* faq */
+  .faq{max-width:720px}
+  details{border-bottom:1px solid var(--line)}
+  summary{cursor:pointer;padding:20px 0;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-family:var(--disp);font-size:1.25rem;color:var(--amber);transition:transform .25s cubic-bezier(.4,0,.2,1)}
+  details[open] summary::after{transform:rotate(45deg)}
+  details p{padding-bottom:20px;color:var(--dim);font-size:.94rem;max-width:58ch}
+
+  /* closing */
+  .closing{text-align:center;padding:110px 0}
+  .closing h2{max-width:18em;margin:14px auto 0}
+  .closing p{margin:18px auto 32px;color:var(--dim);max-width:36em}
+  .closing .sub{margin-top:16px;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+  footer.site{border-top:1px solid var(--line);padding:30px 0;font-size:.8rem;color:var(--dim)}
+  footer.site .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav wrap" aria-label="Main">
+    <a class="logo" href="#top">OCTAVE<span>_</span></a>
+    <div class="nav-right">
+      <a href="#switch">The switch</a>
+      <a href="#build">The build</a>
+      <a href="#buy" class="btn btn-primary">Reserve Slab 65 — $189</a>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero wrap">
+    <p class="batch-pill"><i></i>Batch 03 — 500 units — ships October</p>
+    <h1>The last keyboard you'll build <em>before you stop building keyboards.</em></h1>
+    <p class="lead">Slab 65 is a gasket-mounted 65% in a single block of 6063 aluminium, tuned at the factory to sound the way your third build never quite did. Fully assembled. No soldering, no shims, no regrets.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="#buy">Reserve Slab 65 — $189</a>
+      <a class="btn btn-ghost" href="#switch">Read the spec sheet</a>
+    </div>
+    <p class="hero-proof">Batches 01 &amp; 02 sold out in 41 hours · 4.9★ from 1,204 owners</p>
+
+    <div class="kb-stage">
+      <div class="kb" role="img" aria-label="Slab 65 keyboard, 65% layout, graphite case with amber accent keys">
+        <div class="kb-rows" aria-hidden="true">
+          <div class="kb-row"><button class="key" tabindex="-1">Esc</button><button class="key" tabindex="-1">1</button><button class="key" tabindex="-1">2</button><button class="key" tabindex="-1">3</button><button class="key" tabindex="-1">4</button><button class="key" tabindex="-1">5</button><button class="key" tabindex="-1">6</button><button class="key" tabindex="-1">7</button><button class="key" tabindex="-1">8</button><button class="key" tabindex="-1">9</button><button class="key" tabindex="-1">0</button><button class="key w2" tabindex="-1">Bksp</button><button class="key amber" tabindex="-1">Del</button></div>
+          <div class="kb-row"><button class="key w15" tabindex="-1">Tab</button><button class="key" tabindex="-1">Q</button><button class="key" tabindex="-1">W</button><button class="key" tabindex="-1">E</button><button class="key" tabindex="-1">R</button><button class="key" tabindex="-1">T</button><button class="key" tabindex="-1">Y</button><button class="key" tabindex="-1">U</button><button class="key" tabindex="-1">I</button><button class="key" tabindex="-1">O</button><button class="key" tabindex="-1">P</button><button class="key w15" tabindex="-1">\</button><button class="key amber" tabindex="-1">PgUp</button></div>
+          <div class="kb-row"><button class="key w175" tabindex="-1">Caps</button><button class="key" tabindex="-1">A</button><button class="key" tabindex="-1">S</button><button class="key" tabindex="-1">D</button><button class="key" tabindex="-1">F</button><button class="key" tabindex="-1">G</button><button class="key" tabindex="-1">H</button><button class="key" tabindex="-1">J</button><button class="key" tabindex="-1">K</button><button class="key" tabindex="-1">L</button><button class="key w2" tabindex="-1">Enter</button><button class="key amber" tabindex="-1">PgDn</button></div>
+          <div class="kb-row"><button class="key w2" tabindex="-1">Shift</button><button class="key" tabindex="-1">Z</button><button class="key" tabindex="-1">X</button><button class="key" tabindex="-1">C</button><button class="key" tabindex="-1">V</button><button class="key" tabindex="-1">B</button><button class="key" tabindex="-1">N</button><button class="key" tabindex="-1">M</button><button class="key" tabindex="-1">,</button><button class="key" tabindex="-1">.</button><button class="key amber" tabindex="-1">↑</button><button class="key amber" tabindex="-1">Fn</button></div>
+          <div class="kb-row"><button class="key w15" tabindex="-1">Ctrl</button><button class="key" tabindex="-1">Alt</button><button class="key w625" tabindex="-1"></button><button class="key" tabindex="-1">Alt</button><button class="key amber" tabindex="-1">←</button><button class="key amber" tabindex="-1">↓</button><button class="key amber" tabindex="-1">→</button></div>
+        </div>
+      </div>
+      <p class="kb-hint">Type anywhere on this page — the board presses back</p>
+    </div>
+  </section>
+
+  <!-- SPEC SHEET -->
+  <section id="switch" class="wrap" style="padding-top:48px">
+    <div class="sec-head">
+      <span class="kick">Spec sheet</span>
+      <h2>Numbers first. Adjectives later.</h2>
+    </div>
+    <dl class="specs">
+      <div class="spec"><dt>Mount</dt><dd>Gasket<small>Poron top &amp; bottom, 60A</small></dd></div>
+      <div class="spec"><dt>Case</dt><dd>6063 alu<small>CNC, bead-blasted, 1.9 kg</small></dd></div>
+      <div class="spec"><dt>Plate</dt><dd>FR4<small>flex-cut, half-plate option</small></dd></div>
+      <div class="spec"><dt>Typing angle</dt><dd>6.5°<small>17 mm front height</small></dd></div>
+      <div class="spec"><dt>Switches</dt><dd>Tacton 62<small>factory-lubed tactile, hot-swap</small></dd></div>
+      <div class="spec"><dt>Keycaps</dt><dd>PBT 1.4 mm<small>Cherry profile, dye-sub</small></dd></div>
+      <div class="spec"><dt>Connection</dt><dd>Tri-mode<small>USB-C · 2.4 GHz · BT 5.1</small></dd></div>
+      <div class="spec"><dt>Firmware</dt><dd>QMK / VIA<small>open source, no account</small></dd></div>
+    </dl>
+  </section>
+
+  <!-- FORCE CURVE -->
+  <section class="wrap" style="padding-top:0">
+    <div class="force">
+      <figure class="force-card">
+        <span class="mono">Tacton 62 — measured force curve (n=200 switches)</span>
+        <svg viewBox="0 0 520 250" role="img" aria-label="Force curve: force rises to a 62 gram tactile peak at 0.5 millimetres, drops to 45 grams at actuation, bottoms out at 58 grams at 3.4 millimetres">
+          <g stroke="rgba(201,205,212,.12)" stroke-width="1">
+            <line x1="46" y1="16" x2="46" y2="210"/><line x1="46" y1="210" x2="504" y2="210"/>
+            <line x1="46" y1="64" x2="504" y2="64"/><line x1="46" y1="112" x2="504" y2="112"/><line x1="46" y1="160" x2="504" y2="160"/>
+          </g>
+          <g font-family="IBM Plex Mono,monospace" font-size="10" fill="rgba(232,230,225,.5)">
+            <text x="8" y="20">80g</text><text x="8" y="68">60g</text><text x="8" y="116">40g</text><text x="8" y="164">20g</text><text x="8" y="214">0g</text>
+            <text x="46" y="230">0mm</text><text x="168" y="230">1.0</text><text x="290" y="230">2.0</text><text x="412" y="230">3.0</text><text x="474" y="230">3.4</text>
+          </g>
+          <path d="M46,196 C80,150 96,74 118,62 C142,50 158,96 200,104 C260,115 330,96 420,74 C460,64 490,52 504,44" fill="none" stroke="#E8A33D" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="118" cy="62" r="5" fill="#E8A33D"/>
+          <circle cx="200" cy="104" r="5" fill="#C9CDD4"/>
+          <g font-family="IBM Plex Mono,monospace" font-size="10">
+            <text x="130" y="52" fill="#E8A33D">TACTILE PEAK 62g @ 0.5mm</text>
+            <text x="212" y="122" fill="#C9CDD4">ACTUATION 45g @ 1.9mm</text>
+          </g>
+        </svg>
+      </figure>
+      <div class="force-notes">
+        <div><span class="tag">The bump, up front</span><h3>All the tactility before the travel</h3><p>The 62 g peak sits at 0.5 mm — you feel the event, then glide. No mid-travel mush, no sandpaper. Consistency measured across 200 production switches: ±2.1 g.</p></div>
+        <div><span class="tag">Factory-lubed, honestly</span><h3>Lubed like you would, not like factories do</h3><p>Krytox 205g0 on rails and springs, applied by machine and audited by hand on 5% of every batch. Spring ping: not detectable above 28 dB room tone.</p></div>
+        <div><span class="tag">Hot-swap forever</span><h3>Your board, your switches</h3><p>5-pin hot-swap sockets rated for 100+ insertions. When you inevitably want to try something else, the Slab doesn't argue.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUILD -->
+  <section id="build" class="wrap" style="padding-top:0">
+    <div class="sec-head">
+      <span class="kick">Why it sounds finished</span>
+      <h2>Tuned at the factory, not on your desk mat.</h2>
+      <p>Every trick the hobby invented — we just do them before shipping, with tooling instead of tweezers.</p>
+    </div>
+    <div class="build">
+      <div class="build-card"><span class="num">/01</span><h3>Poron gasket sandwich</h3><p>The plate floats between Poron strips top and bottom — a soft, even bounce and zero metal-on-metal contact anywhere in the case.</p></div>
+      <div class="build-card"><span class="num">/02</span><h3>Two-stage case fill</h3><p>Bottom case lined with Poron over a sorbothane sheet. That's the deep "thock" everyone mods for — cast into the bill of materials instead.</p></div>
+      <div class="build-card"><span class="num">/03</span><h3>Force-break stabs</h3><p>Screw-in stabilizers, wire-balanced and pre-clipped. Spacebar rattle is a manufacturing defect here, not a personality trait.</p></div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="wrap" style="padding-top:0">
+    <div class="sec-head">
+      <span class="kick">From batches 01 &amp; 02</span>
+      <h2>Owners, on the record.</h2>
+    </div>
+    <div class="reviews">
+      <blockquote class="review"><div class="src">r/mechanicalkeyboards</div><p>"I've built nine boards. The Slab out of the box sounds like my best build after a full weekend of tuning. Mildly infuriating. Extremely recommended."</p><footer>u/plateandcase — verified Batch 01</footer></blockquote>
+      <blockquote class="review"><div class="src">YouTube — 214k views</div><p>"The sound test speaks for itself, but the force-curve consistency is the real story. Switch 1 and switch 200 feel identical."</p><footer>Keyboard tier-list channel — Batch 02 review</footer></blockquote>
+      <blockquote class="review"><div class="src">Verified owner</div><p>"Bought it for the office. Coworkers came for the sound, stayed to ask what a gasket mount is. It's a gateway drug in anodized aluminium."</p><footer>Elena V. — Batch 02</footer></blockquote>
+    </div>
+  </section>
+
+  <!-- BUY -->
+  <section id="buy" class="buy-band">
+    <div class="wrap buy" style="padding-top:80px;padding-bottom:80px">
+      <div>
+        <span class="kick">Batch 03 — ships October</span>
+        <h2>Reserve your Slab 65.</h2>
+        <div class="price-line"><span class="price">$189</span><span style="color:var(--dim)">fully assembled</span></div>
+        <div class="stock-bar" role="img" aria-label="135 of 500 units remaining"><i></i></div>
+        <p class="stock-note"><span class="stock">135 / 500 remaining.</span> When Batch 03 sells out, the next window is January. Reservations are fully refundable until your unit ships.</p>
+        <p class="mono" style="color:var(--dim)">Case finish</p>
+        <div class="opts" role="group" aria-label="Choose case finish">
+          <button class="opt" aria-pressed="true">Graphite</button>
+          <button class="opt" aria-pressed="false">Raw alu</button>
+          <button class="opt" aria-pressed="false">Moss</button>
+        </div>
+        <a class="btn btn-primary" href="#">Reserve Slab 65 — $189</a>
+      </div>
+      <ul class="ship-list">
+        <li>Fully assembled — Tacton 62 switches &amp; PBT caps included</li>
+        <li>Refundable any time before shipping</li>
+        <li>2-year warranty, 10-year parts availability pledge</li>
+        <li>QMK/VIA — remap everything, no account, no cloud</li>
+        <li>Ships worldwide, duties included in EU &amp; UK</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="wrap">
+    <div class="sec-head"><span class="kick">Questions</span><h2>Before you reserve.</h2></div>
+    <div class="faq">
+      <details><summary>Is $189 launch pricing or real pricing?</summary><p>Real pricing. Batches are how we manage CNC capacity, not a scarcity lever — the price has been $189 since Batch 01 and stays there.</p></details>
+      <details><summary>Can I use my own switches and keycaps?</summary><p>Yes — 5-pin hot-swap sockets and standard Cherry-profile spacing. The included Tacton 62s and PBT caps are yours to keep either way.</p></details>
+      <details><summary>What if I don't like tactile switches?</summary><p>Reserve with the linear option (Tacton L, 58 g) at checkout, or swap later — it's hot-swap. Either way: 30-day return window, even typed-on.</p></details>
+      <details><summary>Why a 65% layout?</summary><p>It keeps arrows and a nav column — the keys people actually miss on a 60% — while staying small enough to centre your mouse hand. It's the layout our own desks converged on.</p></details>
+    </div>
+  </section>
+</main>
+
+<!-- CLOSING -->
+<section class="closing wrap">
+  <span class="kick">Batch 03 · 135 remaining · ships October</span>
+  <h2>Skip the parts spreadsheet. Keep the sound.</h2>
+  <p>One reservation, one aluminium slab, zero weekends lost to lube stations. Refundable until it ships.</p>
+  <a class="btn btn-primary" href="#buy">Reserve Slab 65 — $189</a>
+  <p class="sub">30-day returns · 2-year warranty · QMK/VIA</p>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© OCTAVE Instruments — portfolio concept. Specs, reviews and stock counts are illustrative.</span>
+    <span>Concept 03 / 04 — Shopify landing series</span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var keys=document.querySelectorAll('.key');
+    var byChar={};
+    keys.forEach(function(k){var t=k.textContent.trim().toLowerCase();if(t.length===1)byChar[t]=k;});
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.addEventListener('keydown',function(e){
+      if(e.metaKey||e.ctrlKey||e.altKey)return;
+      var k=byChar[e.key.toLowerCase()];
+      if(!k&&e.key===' ')k=document.querySelector('.key.w625');
+      if(k&&!reduce){k.classList.add('pressed');setTimeout(function(){k.classList.remove('pressed');},120);}
+    });
+    keys.forEach(function(k){k.addEventListener('click',function(){k.classList.add('pressed');setTimeout(function(){k.classList.remove('pressed');},120);});});
+    document.querySelectorAll('.opt').forEach(function(b){
+      b.addEventListener('click',function(){
+        document.querySelectorAll('.opt').forEach(function(x){x.setAttribute('aria-pressed','false');});
+        b.setAttribute('aria-pressed','true');
+      });
+    });
+  })();
+</script>
+</body>
+</html>

@@ -3,6 +3,22 @@
 Conversion-focused product landing pages built with **Claude Code** as an
 interview demo for a Shopify landing-page role at AVA Beauty.
 
+## Portfolio concept series (4 pages)
+
+`preview/concepts/` holds four standalone landing-page concepts, each for a
+different kind of Shopify merchant with its own complete visual system:
+
+| # | Page | Merchant type | File |
+|---|------|---------------|------|
+| 01 | **KARST Roasters** | Subscription commerce (specialty coffee) | `preview/concepts/01-karst-coffee.html` |
+| 02 | **ARO Tempo 2** | Single-product drop (running shoe) | `preview/concepts/02-aro-tempo.html` |
+| 03 | **OCTAVE Slab 65** | Batch pre-order (mechanical keyboard) | `preview/concepts/03-octave-slab65.html` |
+| 04 | **LERVÆRK Batch 09** | Limited numbered edition (ceramics) | `preview/concepts/04-lervaerk-batch09.html` |
+
+Open `preview/concepts/index.html` for the gallery hub. Design tokens,
+section-by-section breakdowns and Webflow rebuild specs for all four are in
+[`CONCEPTS.md`](CONCEPTS.md). No build step — every page is a single HTML file.
+
 ## AVA Chi Maskine page (brand-matched)
 
 `preview/chi-maskine.html` is a standalone landing page for the **Premium Chi

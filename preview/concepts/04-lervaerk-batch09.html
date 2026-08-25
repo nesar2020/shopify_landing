@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LERVÆRK Batch 09</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Karla:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gallery:#FCFBF9;     /* gallery white */
+    --ink:#211E1B;         /* warm ink */
+    --soft:rgba(33,30,27,.62);
+    --celadon:#5F7F76;     /* glaze accent */
+    --celadon-deep:#48645D;
+    --clay:#C0674B;        /* raw clay — used only in glaze chips */
+    --sand:#D9C9A8;
+    --line:rgba(33,30,27,.16);
+    --radius:0px;          /* museum labels have corners */
+    --disp:"Libre Caslon Display",Georgia,serif;
+    --body:"Karla",system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);background:var(--gallery);color:var(--ink);line-height:1.65;font-size:16.5px}
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--celadon);outline-offset:3px}
+  @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+  .label{font-family:var(--body);font-weight:600;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase}
+  .label.ac{color:var(--celadon)}
+
+  /* ---------- nav ---------- */
+  header{position:sticky;top:0;z-index:50;background:var(--gallery);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{font-family:var(--disp);font-size:1.25rem;letter-spacing:.06em;text-decoration:none}
+  .nav-right{display:flex;gap:30px;align-items:center}
+  .nav-right a:not(.btn){text-decoration:none;font-size:.85rem;font-weight:500;letter-spacing:.04em;color:var(--soft)}
+  .nav-right a:not(.btn):hover{color:var(--ink)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.85em 1.9em;font-weight:600;font-size:.88rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;cursor:pointer;border:1px solid var(--ink);background:var(--ink);color:var(--gallery);transition:background .3s cubic-bezier(.4,0,.2,1),color .3s,border-color .3s}
+  .btn:hover{background:var(--celadon-deep);border-color:var(--celadon-deep)}
+  .btn-ghost{background:transparent;color:var(--ink)}
+  .btn-ghost:hover{background:var(--ink);color:var(--gallery)}
+  @media (max-width:720px){.nav-right a:not(.btn){display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{padding:96px 0 80px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+  .hero .label{margin-bottom:26px;display:block}
+  h1{font-family:var(--disp);font-weight:400;font-size:clamp(2.6rem,5.2vw,4rem);line-height:1.08;letter-spacing:.005em;text-wrap:balance}
+  h1 em{font-style:italic;color:var(--celadon-deep)}
+  .hero p.lead{margin:26px 0 36px;font-size:1.08rem;color:var(--soft);max-width:30em}
+  .hero-ctas{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .hero-note{margin-top:24px;font-size:.85rem;color:var(--soft)}
+  .hero-note b{color:var(--ink)}
+
+  /* vessels */
+  .plinth{position:relative;padding:0 0 0}
+  .shelf{display:flex;align-items:flex-end;justify-content:center;gap:34px;border-bottom:1px solid var(--ink);padding:20px 10px 0;min-height:320px}
+  .vessel{position:relative}
+  .v-body{background:linear-gradient(160deg,#EDE9E1 0%,#DCD5C8 45%,#B9AE9C 100%);}
+  .v1 .v-body{width:92px;height:210px;border-radius:46px 46px 22px 22px / 120px 120px 16px 16px}
+  .v2 .v-body{width:130px;height:150px;border-radius:65px 65px 40px 40px / 95px 95px 28px 28px;background:linear-gradient(160deg,#DFE7E2 0%,#9DB4AB 55%,#5F7F76 100%)}
+  .v3 .v-body{width:74px;height:250px;border-radius:37px 37px 30px 30px / 60px 60px 20px 20px;background:linear-gradient(160deg,#E9E2D4 0%,#D9C9A8 50%,#A98F62 100%)}
+  .v-neck{width:34px;height:26px;margin:0 auto -1px;background:inherit;border-radius:10px 10px 0 0;background:linear-gradient(160deg,#EDE9E1,#C9BFAE)}
+  .v3 .v-neck{width:26px;height:34px}
+  .vessel figcaption{position:absolute;left:50%;transform:translateX(-50%);bottom:-64px;width:108px;text-align:center;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);line-height:1.5}
+  .vessel figcaption b{display:block;font-family:var(--disp);font-size:.95rem;letter-spacing:.03em;text-transform:none;color:var(--ink)}
+  .shelf-pad{height:74px}
+  @media (max-width:880px){.hero{grid-template-columns:1fr;padding:64px 0 56px}.shelf{gap:22px;min-height:260px}.v1 .v-body{height:170px}.v3 .v-body{height:200px}.vessel figcaption{white-space:normal;width:104px;bottom:-64px}}
+
+  /* ---------- edition strip ---------- */
+  .strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0}
+  .strip .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
+  .strip b{color:var(--ink);font-weight:600}
+
+  /* ---------- sections ---------- */
+  section{padding:100px 0}
+  h2{font-family:var(--disp);font-weight:400;font-size:clamp(1.9rem,3.6vw,2.7rem);line-height:1.12;letter-spacing:.005em;text-wrap:balance;margin-top:18px}
+  .sec-head{max-width:600px;margin-bottom:60px}
+  .sec-head p{margin-top:16px;color:var(--soft)}
+
+  /* catalogue */
+  .catalogue{display:grid;grid-template-columns:repeat(3,1fr);gap:44px}
+  .cat-item{display:flex;flex-direction:column}
+  .cat-fig{border:1px solid var(--line);aspect-ratio:4/5;display:flex;align-items:flex-end;justify-content:center;padding:34px 0 0;background:linear-gradient(180deg,#F7F5F0,#EFECE5)}
+  .cat-fig .v-body{margin-bottom:-1px}
+  .cat-meta{border:1px solid var(--line);border-top:none;padding:18px 20px}
+  .cat-meta .no{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--celadon-deep);font-weight:600}
+  .cat-meta h3{font-family:var(--disp);font-weight:400;font-size:1.25rem;margin:8px 0 4px}
+  .cat-meta .dims{font-size:.8rem;color:var(--soft);margin-bottom:12px}
+  .cat-meta .pr{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding-top:12px}
+  .cat-meta .price{font-family:var(--disp);font-size:1.15rem}
+  .cat-meta .left{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--clay);font-weight:600}
+  @media (max-width:860px){.catalogue{grid-template-columns:1fr;gap:34px}}
+
+  /* glaze + firing */
+  .process{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+  .glazes{display:flex;gap:26px;margin-top:8px}
+  .glaze{text-align:center}
+  .chip{width:84px;height:84px;border-radius:50%;border:1px solid var(--line);margin:0 auto 14px}
+  .g1 .chip{background:radial-gradient(circle at 32% 28%,#DFE7E2,#9DB4AB 55%,#48645D)}
+  .g2 .chip{background:radial-gradient(circle at 32% 28%,#EFE7DC,#D9C9A8 55%,#A98F62)}
+  .g3 .chip{background:radial-gradient(circle at 32% 28%,#E8D3C8,#C0674B 60%,#8E4630)}
+  .glaze .label{display:block;margin-bottom:4px}
+  .glaze p{font-size:.8rem;color:var(--soft)}
+  .fire{border-left:1px solid var(--ink);padding-left:28px;display:flex;flex-direction:column;gap:26px}
+  .fire-step{position:relative}
+  .fire-step::before{content:"";position:absolute;left:-32.5px;top:.45em;width:9px;height:9px;border-radius:50%;background:var(--gallery);border:1px solid var(--ink)}
+  .fire-step.hot::before{background:var(--celadon)}
+  .fire-step .label{display:block;margin-bottom:4px;color:var(--soft)}
+  .fire-step h3{font-family:var(--disp);font-weight:400;font-size:1.2rem}
+  .fire-step p{font-size:.9rem;color:var(--soft);max-width:28em}
+  @media (max-width:860px){.process{grid-template-columns:1fr;gap:48px}}
+
+  /* quote band */
+  .quote-band{background:var(--celadon-deep);color:var(--gallery);text-align:center;padding:96px 0}
+  .quote-band blockquote{font-family:var(--disp);font-size:clamp(1.5rem,3.4vw,2.3rem);line-height:1.3;max-width:24em;margin:0 auto;text-wrap:balance}
+  .quote-band cite{display:block;margin-top:26px;font-family:var(--body);font-style:normal;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;opacity:.75}
+
+  /* notes / faq */
+  .notes{max-width:700px}
+  details{border-bottom:1px solid var(--line)}
+  summary{cursor:pointer;padding:22px 0;font-weight:600;font-size:.98rem;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-family:var(--disp);font-size:1.3rem;color:var(--celadon-deep);transition:transform .3s cubic-bezier(.4,0,.2,1)}
+  details[open] summary::after{transform:rotate(45deg)}
+  details p{padding-bottom:22px;color:var(--soft);font-size:.95rem;max-width:58ch}
+
+  /* closing */
+  .closing{text-align:center;padding:110px 0 120px}
+  .closing h2{max-width:16em;margin:18px auto 0}
+  .closing p{margin:20px auto 36px;color:var(--soft);max-width:34em}
+  .closing .sub{margin-top:18px;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
+  footer.site{border-top:1px solid var(--line);padding:32px 0;font-size:.8rem;color:var(--soft)}
+  footer.site .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav wrap" aria-label="Main">
+    <a class="logo" href="#top">LERVÆRK</a>
+    <div class="nav-right">
+      <a href="#catalogue">Catalogue</a>
+      <a href="#process">Process</a>
+      <a class="btn" href="#catalogue">Reserve from Batch 09</a>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero wrap">
+    <div>
+      <span class="label ac">Batch 09 — Stoneware · Thrown in Copenhagen · Edition of 24</span>
+      <h1>Twenty-four pieces. <em>One kiln firing.</em> Never repeated.</h1>
+      <p class="lead">Each LERVÆRK batch is thrown, glazed and fired as a single body of work. When the 24 pieces of Batch 09 are gone, the glaze recipe is retired with them.</p>
+      <div class="hero-ctas">
+        <a class="btn" href="#catalogue">Reserve from Batch 09</a>
+        <a class="btn btn-ghost" href="#process">See the firing</a>
+      </div>
+      <p class="hero-note"><b>9 of 24 pieces remain.</b> Batch 08 sold out in six days.</p>
+    </div>
+    <div class="plinth" aria-label="Three vessels from Batch 09 on a shelf">
+      <div class="shelf">
+        <figure class="vessel v1"><div class="v-neck"></div><div class="v-body"></div><figcaption><b>Vase № 03</b>Ask glaze · h 31 cm</figcaption></figure>
+        <figure class="vessel v2"><div class="v-body"></div><figcaption><b>Bowl № 11</b>Hav glaze · ø 24 cm</figcaption></figure>
+        <figure class="vessel v3"><div class="v-neck"></div><div class="v-body"></div><figcaption><b>Bottle № 17</b>Sand glaze · h 38 cm</figcaption></figure>
+      </div>
+      <div class="shelf-pad"></div>
+    </div>
+  </section>
+
+  <!-- STRIP -->
+  <div class="strip">
+    <div class="wrap">
+      <span><b>Clay</b> — Danish stoneware, Bornholm</span>
+      <span><b>Fired</b> — 1280 °C, reduction</span>
+      <span><b>Signed</b> — base-stamped, numbered</span>
+      <span><b>Certificate</b> — batch record included</span>
+    </div>
+  </div>
+
+  <!-- CATALOGUE -->
+  <section id="catalogue" class="wrap">
+    <div class="sec-head">
+      <span class="label ac">Catalogue — Batch 09</span>
+      <h2>Reserve a numbered piece.</h2>
+      <p>Every piece ships with its batch record: the clay lot, glaze recipe name, kiln position and firing log. What you hold is documented like the object it is.</p>
+    </div>
+    <div class="catalogue">
+      <div class="cat-item">
+        <div class="cat-fig"><figure class="vessel v1" style="margin:0"><div class="v-neck"></div><div class="v-body" style="height:180px"></div></figure></div>
+        <div class="cat-meta">
+          <span class="no">№ 03 / 24</span>
+          <h3>Tall vase — Ask</h3>
+          <p class="dims">h 31 cm · ø 12 cm · ash-grey feldspar glaze</p>
+          <div class="pr"><span class="price">€180</span><span class="left">2 remain</span></div>
+        </div>
+      </div>
+      <div class="cat-item">
+        <div class="cat-fig"><figure class="vessel v2" style="margin:0"><div class="v-body" style="height:130px"></div></figure></div>
+        <div class="cat-meta">
+          <span class="no">№ 11 / 24</span>
+          <h3>Wide bowl — Hav</h3>
+          <p class="dims">ø 24 cm · h 11 cm · celadon pooling to the well</p>
+          <div class="pr"><span class="price">€145</span><span class="left">4 remain</span></div>
+        </div>
+      </div>
+      <div class="cat-item">
+        <div class="cat-fig"><figure class="vessel v3" style="margin:0"><div class="v-neck"></div><div class="v-body" style="height:210px"></div></figure></div>
+        <div class="cat-meta">
+          <span class="no">№ 17 / 24</span>
+          <h3>Bottle — Sand</h3>
+          <p class="dims">h 38 cm · ø 9 cm · matte sand glaze, toasted rim</p>
+          <div class="pr"><span class="price">€210</span><span class="left">3 remain</span></div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:44px;display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+      <a class="btn" href="#">Reserve from Batch 09</a>
+      <span style="font-size:.85rem;color:var(--soft)">Reservation holds a piece for 48 hours — no payment until you confirm.</span>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process" class="wrap" style="padding-top:0">
+    <div class="sec-head">
+      <span class="label ac">Process</span>
+      <h2>Three glazes, one firing, no second chances.</h2>
+      <p>Reduction firing means starving the kiln of oxygen at 1280&nbsp;°C. It's what pulls the green out of iron and the depth out of ash — and it's why no two pieces, even side by side in the kiln, come out alike.</p>
+    </div>
+    <div class="process">
+      <div>
+        <div class="glazes">
+          <div class="glaze g1"><div class="chip" role="img" aria-label="Hav glaze — grey-green celadon"></div><span class="label">Hav</span><p>Iron celadon,<br>pools blue-green</p></div>
+          <div class="glaze g2"><div class="chip" role="img" aria-label="Sand glaze — warm matte beige"></div><span class="label">Sand</span><p>Feldspar matte,<br>breaks toast at edges</p></div>
+          <div class="glaze g3"><div class="chip" role="img" aria-label="Ask glaze — iron red-brown"></div><span class="label">Ask</span><p>Wood-ash over iron,<br>retired after Batch 09</p></div>
+        </div>
+      </div>
+      <div class="fire">
+        <div class="fire-step"><span class="label">Week 1–2</span><h3>Thrown &amp; turned</h3><p>All 24 forms thrown from one 80 kg lot of Bornholm stoneware, then trimmed and stamped while leather-hard.</p></div>
+        <div class="fire-step"><span class="label">Week 3 · 950 °C</span><h3>Bisque firing</h3><p>A slow first firing opens the clay to accept glaze. Pieces that crack here never reach the catalogue.</p></div>
+        <div class="fire-step hot"><span class="label">Week 4 · 1280 °C</span><h3>Reduction firing — 14 hours</h3><p>The kiln is fired overnight and read by eye and cone, not just controller. This is where the batch becomes itself.</p></div>
+        <div class="fire-step"><span class="label">Week 5</span><h3>Graded &amp; numbered</h3><p>Each survivor is water-tested, graded and entered into the batch record. Seconds are broken, not discounted.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="quote-band">
+    <div class="wrap">
+      <blockquote>"The bowl arrived with its firing log. I know it sat front-left in the kiln, where the flame hits first. No factory object can tell you that."</blockquote>
+      <cite>Collector, Batch 07 — Aarhus</cite>
+    </div>
+  </section>
+
+  <!-- NOTES -->
+  <section class="wrap">
+    <div class="sec-head"><span class="label ac">Practical notes</span><h2>Before you reserve.</h2></div>
+    <div class="notes">
+      <details><summary>Is it dishwasher and food safe?</summary><p>Yes — all three Batch 09 glazes are food-safe and vitrified at 1280 °C. Dishwasher tolerated, hand-wash recommended; the glaze will outlive either of us regardless.</p></details>
+      <details><summary>What does "the glaze is retired" mean?</summary><p>The Ask recipe — this exact wood-ash blend — will not be mixed again after Batch 09. Future batches get new recipes. It keeps every batch a body of work, not a product line.</p></details>
+      <details><summary>How does shipping work for something this fragile?</summary><p>Double-boxed in moulded pulp (no plastic), fully insured, shipped within the EU in 2–4 days. A piece that arrives damaged is refunded in full — photos are enough, don't ship it back.</p></details>
+      <details><summary>Can I see pieces in person?</summary><p>The studio in Copenhagen NV opens the first Saturday of each month. Batch 10 will be in the kiln — come see what a firing looks like mid-story.</p></details>
+    </div>
+  </section>
+</main>
+
+<!-- CLOSING -->
+<section class="closing wrap">
+  <span class="label ac">Batch 09 — 9 of 24 remain</span>
+  <h2>When this firing sells out, it's history.</h2>
+  <p>Literally — the batch record closes, the Ask glaze retires, and Batch 10 begins from a blank recipe book. Reserve a numbered piece while the kiln's story is still open.</p>
+  <a class="btn" href="#catalogue">Reserve from Batch 09</a>
+  <p class="sub">48-hour hold · Insured shipping · Full batch record included</p>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© LERVÆRK Studio — portfolio concept. Pieces, prices and records are illustrative.</span>
+    <span>Concept 04 / 04 — Shopify landing series</span>
+  </div>
+</footer>
+
+</body>
+</html>

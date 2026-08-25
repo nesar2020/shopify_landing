@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shopify Landing Concepts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Public+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F4F1;--ink:#1B1A18;--soft:rgba(27,26,24,.6);--line:rgba(27,26,24,.14);
+    --c1:#12291F;--c2:#FF3B1F;--c3:#E8A33D;--c4:#5F7F76;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Public Sans",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;padding:64px 24px}
+  .mono{font-family:"Fragment Mono",monospace;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase}
+  .wrap{max-width:960px;margin:0 auto}
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+  h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;letter-spacing:-.02em;margin:14px 0 10px}
+  .sub{color:var(--soft);max-width:44em;margin-bottom:48px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .card{display:block;text-decoration:none;border:1px solid var(--line);background:#fff;padding:28px 26px;transition:transform .25s cubic-bezier(.4,0,.2,1),box-shadow .25s;position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--ac)}
+  .card:hover{transform:translateY(-3px);box-shadow:0 1px 2px rgba(27,26,24,.06),0 16px 36px -18px rgba(27,26,24,.3)}
+  .card .mono{color:var(--soft)}
+  .card h2{font-size:1.3rem;font-weight:700;letter-spacing:-.01em;margin:12px 0 6px}
+  .card p{font-size:.92rem;color:var(--soft)}
+  .card .meta{margin-top:18px;display:flex;gap:8px;flex-wrap:wrap}
+  .card .meta span{font-family:"Fragment Mono",monospace;font-size:.68rem;letter-spacing:.06em;border:1px solid var(--line);border-radius:100px;padding:.3em .9em;color:var(--soft)}
+  footer{margin-top:56px;padding-top:24px;border-top:1px solid var(--line);color:var(--soft);font-size:.82rem;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  @media (max-width:720px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="mono">Portfolio — 4 concepts · Shopify landing pages</p>
+  <h1>Four stores, four visual systems.</h1>
+  <p class="sub">Each concept is a complete conversion-focused landing page for a different kind of Shopify merchant — its own typography, palette, signature element and offer logic. Nothing shared between them except the discipline.</p>
+
+  <div class="grid">
+    <a class="card" style="--ac:var(--c1)" href="01-karst-coffee.html">
+      <span class="mono">Concept 01 — Subscription commerce</span>
+      <h2>KARST Roasters</h2>
+      <p>Single-lot specialty coffee. Lot-ticket hero, published roast curves, three-tier subscription with a second-cup guarantee.</p>
+      <div class="meta"><span>Bricolage Grotesque</span><span>Fir + amber</span><span>Roast-curve SVG</span></div>
+    </a>
+    <a class="card" style="--ac:var(--c2)" href="02-aro-tempo.html">
+      <span class="mono">Concept 02 — Single product drop</span>
+      <h2>ARO Tempo 2</h2>
+      <p>Performance running shoe. Track-paint hard edges, condensed display type, heart-rate-matched split data as the proof section.</p>
+      <div class="meta"><span>Anton + Barlow</span><span>Chalk + signal</span><span>10K split table</span></div>
+    </a>
+    <a class="card" style="--ac:var(--c3)" href="03-octave-slab65.html">
+      <span class="mono">Concept 03 — Batch pre-order</span>
+      <h2>OCTAVE Slab 65</h2>
+      <p>Enthusiast mechanical keyboard. Dark engineering spec-sheet, measured force curve, and a CSS keyboard that presses back when you type.</p>
+      <div class="meta"><span>Sora + IBM Plex</span><span>Graphite + amber</span><span>Interactive keycaps</span></div>
+    </a>
+    <a class="card" style="--ac:var(--c4)" href="04-lervaerk-batch09.html">
+      <span class="mono">Concept 04 — Limited edition</span>
+      <h2>LERVÆRK Batch 09</h2>
+      <p>Small-batch ceramics studio. Gallery-catalogue quiet: numbered editions, glaze chips, a firing timeline, honest scarcity.</p>
+      <div class="meta"><span>Libre Caslon + Karla</span><span>Gallery white + celadon</span><span>Batch record</span></div>
+    </a>
+  </div>
+
+  <footer>
+    <span>Built as standalone HTML — no build step. Each ships with a Webflow rebuild spec in CONCEPTS.md.</span>
+    <span>nesar2020/shopify_landing</span>
+  </footer>
+</div>
+</body>
+</html>
