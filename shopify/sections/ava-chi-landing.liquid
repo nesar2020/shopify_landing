@@ -1,12 +1,8 @@
-{%- comment -%} Real product photos: pull from Settings > Files by name, fall back to SVG art {%- endcomment -%}
-{%- assign _exts = 'jpg,jpeg,png,webp' | split: ',' -%}
-{%- assign hero_url = '' -%}{%- assign benefit_sleep_url = '' -%}{%- assign benefit_back_url = '' -%}{%- assign benefit_legs_url = '' -%}
-{%- for e in _exts -%}
-  {%- if hero_url == blank -%}{%- assign _t = 'hero-main.' | append: e | file_url -%}{%- if _t != blank -%}{%- assign hero_url = _t -%}{%- endif -%}{%- endif -%}
-  {%- if benefit_sleep_url == blank -%}{%- assign _t = 'benefit-sleep.' | append: e | file_url -%}{%- if _t != blank -%}{%- assign benefit_sleep_url = _t -%}{%- endif -%}{%- endif -%}
-  {%- if benefit_back_url == blank -%}{%- assign _t = 'benefit-back.' | append: e | file_url -%}{%- if _t != blank -%}{%- assign benefit_back_url = _t -%}{%- endif -%}{%- endif -%}
-  {%- if benefit_legs_url == blank -%}{%- assign _t = 'benefit-legs.' | append: e | file_url -%}{%- if _t != blank -%}{%- assign benefit_legs_url = _t -%}{%- endif -%}{%- endif -%}
-{%- endfor -%}
+{%- comment -%} Real product photos from Settings > Files (Chi Maskine dump). Swap URLs in the Theme Editor to change. {%- endcomment -%}
+{%- assign hero_url = 'https://cdn.shopify.com/s/files/1/1034/9815/4319/files/imgi_90_chi223_1080x_56089d79-aed5-4a2d-aad2-b69918583ed7.webp?v=1787483262' -%}
+{%- assign benefit_sleep_url = 'https://cdn.shopify.com/s/files/1/1034/9815/4319/files/imgi_32_openart-image_1779350651797_fc787c47_1779350652282_691d3db5.webp?v=1787483259' -%}
+{%- assign benefit_back_url = 'https://cdn.shopify.com/s/files/1/1034/9815/4319/files/imgi_136_openart-image_Xb9av3T8_1773418027238_raw_1080x_d2183892-0c14-49ae-813d-1237a17ea300.jpg?v=1787483262' -%}
+{%- assign benefit_legs_url = 'https://cdn.shopify.com/s/files/1/1034/9815/4319/files/imgi_98_openart-image_1779385083710_678c3ac8_1779385083785_4437bd11_1080x_57361595-3bb2-4bc6-ba47-9047c3d804bb.webp?v=1787483263' -%}
 <style>
 /* AVA-consistent design system — single light look, explicit colors (brand fidelity) */
 :root{
